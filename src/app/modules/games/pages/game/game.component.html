@@ -1,0 +1,86 @@
+<section class="game-container">
+  <div class="container px-5">
+    <div class="title-container col-8">
+      @if (game){
+      <h2>Editar Juego:</h2>
+
+      } @else{
+      <h2>Crear Juego:</h2>
+      }
+    </div>
+
+    <form [formGroup]="gameData" (submit)="handleSubmit($event)">
+      <div class="form-group mt-3">
+        <label for="title">Titulo</label>
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          aria-describedby="titleHelp"
+          placeholder="Ingresar titulo"
+          formControlName="title"
+        />
+        <small id="titleHelp" class="form-text text-muted"
+          >We'll never share your email with anyone else.</small
+        >
+      </div>
+      <div class="form-group mt-3">
+        <label for="genero">Seleccionar genero</label>
+        <select class="form-control" id="genero" formControlName="genre">
+          @for (genre of genres; track genre.id) {
+          <option value="{{ genre.id }}">{{ genre.name }}</option>
+          }
+        </select>
+      </div>
+      <div class="form-group mt-3">
+        <label for="price">Precio</label>
+        <input
+          type="number"
+          class="form-control"
+          id="price"
+          formControlName="price"
+          aria-describedby="priceHelp"
+          placeholder="Ingresar precio"
+        />
+      </div>
+
+      <div formGroupName="requirements" class="mt-3">
+        <h5>Requerimientos</h5>
+        <div class="form-group mt-3">
+          <label for="cpu">CPU</label>
+          <input
+            type="text"
+            class="form-control"
+            id="cpu"
+            aria-describedby="cpuHelp"
+            placeholder="Ingresar CPU"
+            formControlName="cpu"
+          />
+        </div>
+        <div class="form-group mt-3">
+          <label for="mem">Memoria</label>
+          <input
+            type="text"
+            class="form-control"
+            id="mem"
+            aria-describedby="memHelp"
+            placeholder="Ingresar Memoria"
+            formControlName="mem"
+          />
+        </div>
+        <div class="form-group mt-3">
+          <label for="disk">Almacenamiento</label>
+          <input
+            type="text"
+            class="form-control"
+            id="disk"
+            aria-describedby="diskHelp"
+            placeholder="Ingresar Almacenamiento"
+            formControlName="disk"
+          />
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary mt-3">Guardar</button>
+    </form>
+  </div>
+</section>

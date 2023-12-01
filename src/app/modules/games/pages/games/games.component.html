@@ -1,0 +1,33 @@
+<section class="games-container">
+  <div class="title-container col-8">
+    <h2>Listado de juegos:</h2>
+    <!-- <button routerLink="/empleados/crear">Ir a crear empleado</button> -->
+    <!-- <button class="redirect" routerLink="/home">Ir a home</button> -->
+  </div>
+
+  <div class="grid-container" style="margin: auto">
+    @if (games.length >= 1){
+
+    <ul class="row container">
+      @for (game of games; track game.id) {
+
+      <li
+        appHighLigth
+        style="cursor: pointer"
+        class="col-lg-4 cwol-md-12 mb-4 mb-lg-0 card rounded"
+      >
+        <div routerLink="/games/{{ game.id }}">
+          <span class="id">{{ game.id }}</span>
+          <span style="margin-left: 5px">
+            {{ game.title }} {{ game.price }} -
+          </span>
+        </div>
+      </li>
+
+      }
+    </ul>
+    } @else {
+    <span class="badge badge-primary">Aún no hay juegos</span>
+    }
+  </div>
+</section>

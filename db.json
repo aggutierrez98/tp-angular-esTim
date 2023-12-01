@@ -1,0 +1,54 @@
+{
+  "games": [
+    {
+      "id": 1,
+      "title": "Ree loco I",
+      "requirements": {
+        "cpu": "5.6GHz",
+        "mem": "8GB",
+        "disk": "50GB"
+      },
+      "genre": 1,
+      "price": 30000
+    },
+    {
+      "id": 2,
+      "title": "Ree loco II",
+      "requirements": {
+        "cpu": "5.6GHz",
+        "mem": "8GB",
+        "disk": "50GB"
+      },
+      "genre": 1,
+      "price": 25000
+    },
+    {
+      "id": 3,
+      "title": "Juegardou",
+      "requirements": {
+        "cpu": "5.6GHz",
+        "mem": "8GB",
+        "disk": "50GB"
+      },
+      "genre": 2,
+      "price": 50000
+    }
+  ],
+  "genres": [
+    {
+      "id": 1,
+      "name": "Terror",
+      "fields": []
+    },
+    {
+      "id": 2,
+      "name": "Accion",
+      "fields": []
+    },
+    {
+      "id": 3,
+      "name": "Aventura",
+      "fields": []
+    }
+  ]
+}
