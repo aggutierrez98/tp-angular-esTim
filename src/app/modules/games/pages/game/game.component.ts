@@ -21,11 +21,14 @@ export class GameComponent implements OnInit {
 
   game?: Game = undefined
   genres?: Genre[] = []
+  games?: Game[] = []
   id = this.activatedRoute.snapshot.params['id']
 
   gameData = this.fb.group({
     title: this.fb.control("", { nonNullable: true }),
     genre: this.fb.control("", { nonNullable: true }),
+    isDlc: this.fb.control(false, { nonNullable: true }),
+    originalGame: this.fb.control(""),
     requirements: this.fb.group({
       cpu: this.fb.control(""),
       mem: this.fb.control(""),
@@ -43,6 +46,11 @@ export class GameComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute, private gameService: GamesService, private genresService: GenresService, private fb: FormBuilder) { }
 
   ngOnInit(): void {
+
+    this.gameService.getGames().subscribe((res) => {
+      this.games = res;
+    });
+
     this.genresService.getGenres().subscribe((res) => {
       this.genres = res;
     })
@@ -54,6 +62,8 @@ export class GameComponent implements OnInit {
         this.gameData.controls.price.setValue(String(res.price))
         this.gameData.controls.genre.setValue(String(res.genre))
         this.gameData.controls.requirements.setValue(res.requirements)
+        this.gameData.controls.isDlc.setValue(res.isDlc)
+        this.gameData.controls.originalGame.setValue(res.originalGame ?? null)
 
         if (res.fields) {
           for (const field of res.fields) {
@@ -69,7 +79,6 @@ export class GameComponent implements OnInit {
     }
 
   }
-
 
   changeGenre(value: string) {
     if (this.genres) {
@@ -101,7 +110,9 @@ export class GameComponent implements OnInit {
         disk: this.gameData.controls.requirements.value.disk || "",
         mem: this.gameData.controls.requirements.value.mem || "",
       },
-      fields: this.gameData.get("fields")?.value ?? []
+      fields: this.gameData.get("fields")?.value ?? [],
+      isDlc: this.gameData.controls.isDlc.value,
+      originalGame: this.gameData.controls.originalGame.value ?? null,
     }
 
     if (this.id !== "create") {
@@ -128,8 +139,29 @@ export class GameComponent implements OnInit {
       }
     );
   }
-
   sucessOk() {
     window.location.href = "/games"
+  }
+
+  changeDlc(value: string) {
+    if (this.games) {
+      this.gameData.controls.originalGame.setValue(value)
+      this.gameData.controls.fields.clear()
+
+      this.gameService.getGame(value).subscribe((res) => {
+        const genre = this.genres?.find(genre => genre.id === res.genre)
+
+        if (genre) {
+          for (const field of genre.fields) {
+            this.gameData.controls.fields.push(this.fb.group({
+              id: this.fb.control(field.id, { nonNullable: true },),
+              name: this.fb.control(field.name, { nonNullable: true }),
+              type: this.fb.control(field.type, { nonNullable: true }),
+              value: this.fb.control("", { nonNullable: true }),
+            }))
+          }
+        }
+      })
+    }
   }
 }

@@ -54,9 +54,67 @@
         <span class="badge badge-secondary display-6">{{ genre }}</span>
       </div>
 
-      <button (click)="buyGame()" type="button" class="btn btn-primary">
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-bs-toggle="modal"
+        data-bs-target="#modalComprar"
+      >
         Comprar Juego
       </button>
     </section>
   </div>
 </section>
+
+<div
+  class="modal fade"
+  id="modalComprar"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="Modal comprar juego"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="Comprar Juego">Comprar Juego</h5>
+        <button
+          type="button"
+          class="close"
+          data-bs-dismiss="modal"
+          aria-label="Cancelar"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <select
+          class="form-select"
+          id="juegoOrginalCheck"
+          formControlName="originalGame"
+          required
+        >
+          <option disabled hidden selected value="">
+            Seleccione el metodo de pago deseado
+          </option>
+          <option value="efectivo">Efectivo</option>
+          <option value="tarjeta-debito">Tarjeta de debito</option>
+          <option value="tarjeta-credito">Tarjeta de credito</option>
+        </select>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancelar
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="buyGame(game!.id)"
+        >
+          Comprar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

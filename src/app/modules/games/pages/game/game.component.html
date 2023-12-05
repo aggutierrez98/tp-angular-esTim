@@ -33,6 +33,39 @@
           >We'll never share your email with anyone else.</small
         >
       </div>
+
+      <div class="input-group my-3">
+        <label for="genero" class="input-group-text">Es DCL?</label>
+        <div class="input-group-text form-check form-switch">
+          <input
+            class="form-check-input mx-2"
+            type="checkbox"
+            role="switch"
+            id="flexSwitchCheckDefault"
+            formControlName="isDlc"
+          />
+        </div>
+
+        @if(gameData.controls.isDlc.value) {
+        <select
+          class="form-select"
+          id="juegoOrginalCheck"
+          formControlName="originalGame"
+          #juegos
+          (change)="changeDlc(juegos.value)"
+          required
+        >
+          <option disabled hidden selected value="">
+            Seleccione juego extendido
+          </option>
+          @for (game of games; track game.id) {
+          <option value="{{ game.id }}">{{ game.title }}</option>
+          }
+        </select>
+        }
+      </div>
+
+      @if(!gameData.controls.isDlc.value) {
       <div class="form-group mt-3">
         <label for="genero">Genero</label>
         <select
@@ -49,8 +82,7 @@
           }
         </select>
       </div>
-
-      @if(gameData.controls.fields.value.length > 0){
+      } @if(gameData.controls.fields.value.length > 0){
       <div formArrayName="fields" class="my-4">
         <h5>Campos personalizados</h5>
         @for (field of gameData.get('fields')!.value; track field.id) {

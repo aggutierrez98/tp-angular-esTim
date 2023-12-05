@@ -29,8 +29,8 @@ export class BuygameComponent implements OnInit {
 
   }
 
-  buyGame() {
-    //TODO comprar juego
+  buyGame(id: number) {
+    window.location.href = `/shop/checkout/${id}`
   }
 }
 

@@ -1,0 +1,120 @@
+<!-- <section class="games-container container"> -->
+<section class="container">
+  <div class="title-container mt-4">
+    <h2>Registrarse</h2>
+  </div>
+
+  <form
+    [formGroup]="registerForm"
+    (submit)="handleSubmit(content)"
+    class="shadow-lg p-3"
+  >
+    <div class="mb-3">
+      <label for="name" class="form-label">Nombre</label>
+      <input
+        type="name"
+        class="form-control"
+        id="name"
+        aria-describedby="nameHelp"
+        formControlName="name"
+        placeholder="Nombre Ejemplo"
+      />
+      @if(registerForm.get("name")?.touched &&
+      registerForm.get("name")?.invalid){
+      <div id="emailHelp" class="form-text text-danger">
+        Por favor ingresar nombre valido
+      </div>
+      }
+    </div>
+    <div class="y-3">
+      <label for="email" class="form-label">Correo electronico</label>
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        aria-describedby="emailHelp"
+        formControlName="email"
+        placeholder="email@ejemplo.com.ar"
+      />
+      @if(registerForm.get("email")?.touched &&
+      registerForm.get("email")?.invalid){
+      <div id="emailHelp" class="form-text text-danger">
+        Por favor ingresar correo valido
+      </div>
+      }
+    </div>
+
+    <div class="my-3">
+      <label for="password" class="form-label">Contraseña</label>
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        type="{{ hidePassword ? 'password' : 'text' }}"
+        formControlName="password"
+        placeholder="******"
+      />
+      @if(registerForm.get("password")?.touched &&
+      registerForm.get("password")?.invalid){
+      <div id="emailHelp" class="form-text text-danger">
+        Por favor ingresar contraseña valida
+      </div>
+      }
+    </div>
+
+    <div class="input-group my-3">
+      <button
+        id="showPassButton"
+        class="btn btn-primary"
+        type="button"
+        (click)="hidePassword = !hidePassword"
+        autocomplete="off"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hidePassword"
+      >
+        @if(hidePassword){
+        <i class="bi bi-eye" style="font-size: 1rem; color: white"></i>
+        } @else {
+        <i class="bi bi-eye-slash" style="font-size: 1rem; color: white"></i>
+        }
+      </button>
+      <label class="input-group-text" for="showPassButton">
+        @if(hidePassword){ Mostrar Contraseña } @else { No Mostrar Contraseña }
+      </label>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-end">
+      <button type="submit" class="btn btn-primary mt-2">Registrarse</button>
+
+      <a routerLink="/auth/login" class="ms-3"
+        >Ya tienes cuenta? Inicia sesion aca!</a
+      >
+    </div>
+  </form>
+</section>
+
+<!-- MODAL FALLO -->
+<ng-template #content let-modal>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">Error en registro de usuario</h5>
+      <button
+        type="button"
+        class="close"
+        data-bs-dismiss="modal"
+        aria-label="Cancelar"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Sucedio error en el ingreso de campos de formulario.</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-info" (click)="modal.close()">
+        Ok
+      </button>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,101 @@
+<!-- <section class="games-container container"> -->
+<section class="container">
+  <div class="title-container mt-4">
+    <h2>Inciar Sesion</h2>
+  </div>
+
+  <form
+    [formGroup]="logInForm"
+    (submit)="handleSubmit(content)"
+    class="shadow-lg p-3"
+  >
+    <div class="y-3">
+      <label for="email" class="form-label">Correo electronico</label>
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        aria-describedby="emailHelp"
+        formControlName="email"
+        placeholder="email@ejemplo.com.ar"
+      />
+      @if(logInForm.get("email")?.touched && logInForm.get("email")?.invalid){
+      <div id="emailHelp" class="form-text text-danger">
+        Por favor ingresar correo valido
+      </div>
+      }
+    </div>
+    <div class="my-3">
+      <label for="password" class="form-label">Contraseña</label>
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        type="{{ hidePassword ? 'password' : 'text' }}"
+        formControlName="password"
+        placeholder="******"
+      />
+      @if(logInForm.get("password")?.touched &&
+      logInForm.get("password")?.invalid){
+      <div id="emailHelp" class="form-text text-danger">
+        Por favor ingresar contraseña valida
+      </div>
+      }
+    </div>
+
+    <div class="input-group my-3">
+      <button
+        id="showPassButton"
+        class="btn btn-primary"
+        type="button"
+        (click)="hidePassword = !hidePassword"
+        autocomplete="off"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hidePassword"
+      >
+        @if(hidePassword){
+        <i class="bi bi-eye" style="font-size: 1rem; color: white"></i>
+        } @else {
+        <i class="bi bi-eye-slash" style="font-size: 1rem; color: white"></i>
+        }
+      </button>
+      <label class="input-group-text" for="showPassButton">
+        @if(hidePassword){ Mostrar Contraseña } @else { No Mostrar Contraseña }
+      </label>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-end">
+      <button type="submit" class="btn btn-primary mt-2">Ingresar</button>
+
+      <a routerLink="/auth/register" class="ms-3"
+        >No tienes cuenta? Registrate aca!</a
+      >
+    </div>
+  </form>
+</section>
+
+<!-- MODAL FALLO -->
+<ng-template #content let-modal>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">Error en inicio de sesion</h5>
+      <button
+        type="button"
+        class="close"
+        data-bs-dismiss="modal"
+        aria-label="Cancelar"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Credenciales ingresadas invalidas.</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-info" (click)="modal.close()">
+        Ok
+      </button>
+    </div>
+  </div>
+</ng-template>
