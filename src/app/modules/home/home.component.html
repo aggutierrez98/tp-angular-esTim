@@ -1,26 +1,35 @@
-<section class="games-container">
-  <div class="title-container col-8">
+<!-- <section class="games-container container"> -->
+<section class="container">
+  <div class="title-container mt-4">
     <h2>Tienda de juegos:</h2>
-    <!-- <button routerLink="/empleados/crear">Ir a crear empleado</button> -->
-    <!-- <button class="redirect" routerLink="/home">Ir a home</button> -->
   </div>
 
-  <div class="grid-container" style="margin: auto">
+  <div class="container-fluid mt-3" style="margin: auto">
     @if (games.length >= 1){
 
-    <ul class="row container">
+    <ul class="row row-cols-sm-2 row-cols-md-6 row-cols-lg-4 g-4 gx-5 ps-0">
       @for (game of games; track game.id) {
 
-      <li
-        appHighLigth
-        style="cursor: pointer"
-        class="col-lg-4 cwol-md-12 mb-4 mb-lg-0 card rounded"
-      >
-        <div routerLink="/shop/{{ game.id }}">
-          <span class="id">{{ game.id }}</span>
-          <span style="margin-left: 5px">
-            {{ game.title }} {{ game.price }} -
-          </span>
+      <li appHighLigth class="col-sm-12 col-md-6 col-lg-4 card">
+        <div
+          routerLink="/shop/{{ game.id }}"
+          class="d-flex row shadow"
+          style="cursor: pointer"
+        >
+          <div
+            class="d-flex justify-content-between align-items-center mb-2 title-container"
+          >
+            <span class="fw-bold fs-2">
+              {{ game.title }}
+            </span>
+            <span class="fs-3"> ${{ game.price }} </span>
+          </div>
+          <p>
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quibusdam
+            minima omnis animi iure ullam voluptate similique in. Eum corrupti
+            blanditiis commodi, ducimus quisquam temporibus doloribus dolorum
+            incidunt maiores error ipsam!
+          </p>
         </div>
       </li>
 

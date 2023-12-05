@@ -4,6 +4,12 @@ export interface Game {
     requirements: Requirements;
     genre: number;
     price: number;
+    fields: {
+        id: number
+        name: string
+        type: "text" | "number"
+        value: string;
+    }[]
 }
 
 export interface Requirements {
@@ -15,4 +21,5 @@ export interface Requirements {
 export interface Genre {
     id: number;
     name: string;
+    fields: { id: number, name: string, type: "text" | "number" }[]
 }

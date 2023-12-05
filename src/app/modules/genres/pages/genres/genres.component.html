@@ -1,39 +1,37 @@
 <section class="container mt-4">
   <div class="title-container">
-    <h2>Listado de juegos:</h2>
+    <h2>Listado de generos:</h2>
 
-    <button type="button" class="btn btn-primary" routerLink="/games/create">
-      Cargar Juego
+    <button type="button" class="btn btn-primary" routerLink="/genres/create">
+      Cargar Genero
     </button>
   </div>
 
   <div class="" style="margin: auto">
-    @if (games.length >= 1){
+    @if (genres.length >= 1){
 
     <ul style="padding-left: 0">
-      @for (game of games; track game.id) {
+      @for (genre of genres; track genre.id) {
 
       <li
         style="cursor: pointer"
         class="mb-3 card rounded mt-3 p-2 d-flex flex-row"
       >
         <div
-          routerLink="/games/{{ game.id }}"
+          routerLink="/genres/{{ genre.id }}"
           class="d-flex align-items-center flex-grow-1"
         >
-          <span class="badge badge-primary badge-pill">{{ game.id }}</span>
+          <span class="badge badge-primary badge-pill">{{ genre.id }}</span>
           <span style="margin-left: 5px" class="fs-5 font-weight-bold">
-            {{ game.title }}
+            {{ genre.name }}
           </span>
-          -
-          <span style="margin-left: 5px" class="fs-6">${{ game.price }} </span>
         </div>
         <button
           data-bs-toggle="modal"
           type="button"
           class="btn btn-danger"
           data-bs-target="#modalDelete"
-          (click)="openModal(game.id)"
+          (click)="openModal(genre.id)"
         >
           Eliminar
         </button>
@@ -42,7 +40,7 @@
       }
     </ul>
     } @else {
-    <span class="badge badge-primary">Aún no hay juegos</span>
+    <span class="badge badge-primary">Aún no hay generos</span>
     }
   </div>
 </section>
@@ -52,13 +50,13 @@
   id="modalDelete"
   tabindex="-1"
   role="dialog"
-  aria-labelledby="Modal eliminar juego"
+  aria-labelledby="Modal eliminar genero"
   aria-hidden="true"
 >
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="Eliminar juego">Eliminar Juego</h5>
+        <h5 class="modal-title" id="Eliminar genero">Eliminar Genero</h5>
         <button
           type="button"
           class="close"
@@ -69,13 +67,17 @@
         </button>
       </div>
       <div class="modal-body">
-        <p>Confirmar eliminacion del juego.</p>
+        <p>Confirmar eliminacion del genero.</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Cancelar
         </button>
-        <button type="button" class="btn btn-primary" (click)="eliminarJuego()">
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="eliminarGenero()"
+        >
           Eliminar
         </button>
       </div>

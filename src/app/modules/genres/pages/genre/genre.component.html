@@ -1,0 +1,113 @@
+<section class="container mt-4">
+  <div>
+    @if (genre){
+    <div class="d-flex justify-content-between flex-grow-1">
+      <h2>Editar Genero:</h2>
+
+      <button
+        data-bs-toggle="modal"
+        type="button"
+        class="btn btn-danger"
+        data-bs-target="#modalDelete"
+      >
+        Eliminar Genero
+      </button>
+    </div>
+
+    } @else{
+    <h2>Crear Genero:</h2>
+    }
+
+    <form [formGroup]="genreData" (submit)="handleSubmit($event)">
+      <div class="form-group mt-3">
+        <label for="name">Nombre</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+          aria-describedby="nameHelp"
+          placeholder="Ingresar nombre"
+          formControlName="name"
+        />
+        <!-- <small id="nameHelp" class="form-text text-muted"
+          >We'll never share your email with anyone else.</small
+        > -->
+      </div>
+
+      <div formArrayName="fields" class="my-4">
+        <h5>Campos personalizados</h5>
+        @for (field of genreData.controls.fields.value; track field.id) {
+        <div [formGroupName]="$index" class="input-group my-3">
+          <label class="input-group-text" for="{{ field.id }}"
+            >Ingrese campo</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="{{ field.name }}"
+            placeholder="Ingresar nombre del campo"
+            formControlName="name"
+          />
+          <select required class="form-select" id="type" formControlName="type">
+            <option hidden disabled value="">Seleccione una opcion</option>
+            <option value="text">Texto</option>
+            <option value="number">Numerico</option>
+          </select>
+
+          <button
+            type="button"
+            class="btn btn-outline-danger"
+            (click)="deleteField($index)"
+          >
+            Borrar
+          </button>
+        </div>
+        }
+        <button
+          type="button"
+          class="btn btn-outline-primary mt-1"
+          (click)="addField()"
+        >
+          Agregar campo
+        </button>
+      </div>
+      <button type="submit" class="btn btn-primary mt-3">Guardar</button>
+    </form>
+  </div>
+</section>
+
+<div
+  class="modal fade"
+  id="modalDelete"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="Modal eliminar genero"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="Eliminar genero">Eliminar Genero</h5>
+        <button
+          type="button"
+          class="close"
+          data-bs-dismiss="modal"
+          aria-label="Cancelar"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Confirmar eliminacion del genero.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancelar
+        </button>
+        <button type="button" class="btn btn-primary" (click)="deleteGenre()">
+          Eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

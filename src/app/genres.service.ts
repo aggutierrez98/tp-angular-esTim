@@ -20,16 +20,40 @@ export class GenresService {
       })
     );
   }
-  // getGenre(id: string): Observable<Genre> {
-  //   return this.http.get<Genre>(`${this.apiUrl}/genres/${id}`).pipe(
-  //     catchError((error) => {
-  //       console.error('API Error:', error);
-  //       return throwError(() => new Error('Something went wrong. Please try again later.'));
-  //     })
-  //   );
-  // }
 
-  // createPost(newPost: Post): Observable<Post> {
-  //   // API request logic
-  // }
+  getGenre(id: string): Observable<Genre> {
+    return this.http.get<Genre>(`${this.apiUrl}/genres/${id}`).pipe(
+      catchError((error) => {
+        console.error('API Error:', error);
+        return throwError(() => new Error('Something went wrong. Please try again later.'));
+      })
+    );
+  }
+
+  createGenre(data: Omit<Genre, "id">): Observable<Genre> {
+    return this.http.post<Genre>(`${this.apiUrl}/genres`, data).pipe(
+      catchError((error) => {
+        console.error('API Error:', error);
+        return throwError(() => new Error('Something went wrong. Please try again later.'));
+      })
+    );
+  }
+
+  updateGenre(id: string, data: Partial<Omit<Genre, "id">>): Observable<Genre> {
+    return this.http.put<Genre>(`${this.apiUrl}/genres/${id}`, data).pipe(
+      catchError((error) => {
+        console.error('API Error:', error);
+        return throwError(() => new Error('Something went wrong. Please try again later.'));
+      })
+    );
+  }
+
+  deleteGenre(id: string): Observable<Genre> {
+    return this.http.delete<Genre>(`${this.apiUrl}/genres/${id}`).pipe(
+      catchError((error) => {
+        console.error('API Error:', error);
+        return throwError(() => new Error('Something went wrong. Please try again later.'));
+      })
+    );
+  }
 }

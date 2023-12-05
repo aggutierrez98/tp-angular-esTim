@@ -23,22 +23,61 @@
       "price": 25000
     },
     {
-      "id": 3,
-      "title": "Juegardou",
+      "genre": 4,
+      "title": "Juegardo",
+      "price": 50000,
       "requirements": {
         "cpu": "5.6GHz",
-        "mem": "8GB",
-        "disk": "50GB"
+        "disk": "50GB",
+        "mem": "8GB"
       },
-      "genre": 2,
-      "price": 50000
+      "fields": [
+        {
+          "id": 0,
+          "name": "aaaaaaaaaa",
+          "type": "text",
+          "value": "asdasdasdsad"
+        },
+        {
+          "id": 1,
+          "name": "bbbbbbbbbbb",
+          "type": "number",
+          "value": "17"
+        }
+      ],
+      "id": 3
+    },
+    {
+      "genre": 1,
+      "title": "dsadasd",
+      "price": 123123,
+      "requirements": {
+        "cpu": "5.6GHz",
+        "disk": "50GB",
+        "mem": "8GB"
+      },
+      "fields": [
+        {
+          "id": 0,
+          "name": "Nivel de miedo",
+          "type": "number",
+          "value": "23"
+        }
+      ],
+      "id": 4
     }
   ],
   "genres": [
     {
-      "id": 1,
       "name": "Terror",
-      "fields": []
+      "fields": [
+        {
+          "id": 0,
+          "name": "Nivel de miedo",
+          "type": "number"
+        }
+      ],
+      "id": 1
     },
     {
       "id": 2,
@@ -49,6 +88,22 @@
       "id": 3,
       "name": "Aventura",
       "fields": []
+    },
+    {
+      "name": "Afip",
+      "fields": [
+        {
+          "id": 0,
+          "name": "aaaaaaaaaa",
+          "type": "text"
+        },
+        {
+          "id": 1,
+          "name": "bbbbbbbbbbb",
+          "type": "number"
+        }
+      ],
+      "id": 4
     }
   ]
 }

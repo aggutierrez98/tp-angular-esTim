@@ -1,13 +1,22 @@
-<section class="game-container">
-  <div class="container px-5">
-    <div class="title-container col-8">
-      @if (game){
+<section class="container mt-4">
+  <div>
+    @if (game){
+    <div class="d-flex justify-content-between flex-grow-1">
       <h2>Editar Juego:</h2>
 
-      } @else{
-      <h2>Crear Juego:</h2>
-      }
+      <button
+        data-bs-toggle="modal"
+        type="button"
+        class="btn btn-danger"
+        data-bs-target="#modalDelete"
+      >
+        Eliminar Juego
+      </button>
     </div>
+
+    } @else{
+    <h2>Crear Juego:</h2>
+    }
 
     <form [formGroup]="gameData" (submit)="handleSubmit($event)">
       <div class="form-group mt-3">
@@ -25,13 +34,43 @@
         >
       </div>
       <div class="form-group mt-3">
-        <label for="genero">Seleccionar genero</label>
-        <select class="form-control" id="genero" formControlName="genre">
+        <label for="genero">Genero</label>
+        <select
+          class="form-select"
+          id="genero"
+          formControlName="genre"
+          #generos
+          (change)="changeGenre(generos.value)"
+          required
+        >
+          <option disabled hidden value="">Seleccione genero</option>
           @for (genre of genres; track genre.id) {
           <option value="{{ genre.id }}">{{ genre.name }}</option>
           }
         </select>
       </div>
+
+      @if(gameData.controls.fields.value.length > 0){
+      <div formArrayName="fields" class="my-4">
+        <h5>Campos personalizados</h5>
+        @for (field of gameData.get('fields')!.value; track field.id) {
+        <div [formGroupName]="$index" class="input-group my-3">
+          <label class="input-group-text" for="{{ id }}">{{
+            field.name
+          }}</label>
+          <input
+            type="{{ field.type }}"
+            class="form-control"
+            id="{{ field.id }}"
+            placeholder="Ingresar {{ field.name.toLocaleLowerCase() }}"
+            formControlName="value"
+            [value]="field.value"
+          />
+        </div>
+        }
+      </div>
+      }
+
       <div class="form-group mt-3">
         <label for="price">Precio</label>
         <input
@@ -84,3 +123,39 @@
     </form>
   </div>
 </section>
+
+<div
+  class="modal fade"
+  id="modalDelete"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="Modal eliminar juego"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="Eliminar juego">Eliminar Juego</h5>
+        <button
+          type="button"
+          class="close"
+          data-bs-dismiss="modal"
+          aria-label="Cancelar"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Confirmar eliminacion del juego.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancelar
+        </button>
+        <button type="button" class="btn btn-primary" (click)="deleteGame()">
+          Eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

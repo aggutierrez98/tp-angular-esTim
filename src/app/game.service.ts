@@ -29,7 +29,29 @@ export class GamesService {
     );
   }
 
-  // createPost(newPost: Post): Observable<Post> {
-  //   // API request logic
-  // }
+  createGame(data: Omit<Game, "id">): Observable<Game> {
+    return this.http.post<Game>(`${this.apiUrl}/games`, data).pipe(
+      catchError((error) => {
+        console.error('API Error:', error);
+        return throwError(() => new Error('Something went wrong. Please try again later.'));
+      })
+    );
+  }
+  updateGame(id: string, data: Partial<Omit<Game, "id">>): Observable<Game> {
+    return this.http.put<Game>(`${this.apiUrl}/games/${id}`, data).pipe(
+      catchError((error) => {
+        console.error('API Error:', error);
+        return throwError(() => new Error('Something went wrong. Please try again later.'));
+      })
+    );
+  }
+
+  deleteGame(id: string): Observable<Game> {
+    return this.http.delete<Game>(`${this.apiUrl}/games/${id}`).pipe(
+      catchError((error) => {
+        console.error('API Error:', error);
+        return throwError(() => new Error('Something went wrong. Please try again later.'));
+      })
+    );
+  }
 }

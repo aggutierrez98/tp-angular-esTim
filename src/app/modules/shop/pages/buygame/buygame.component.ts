@@ -13,6 +13,7 @@ import { Game } from '../../../../../types';
 })
 export class BuygameComponent implements OnInit {
   game?: Game = undefined
+  genre = ""
 
   constructor(private activatedRoute: ActivatedRoute, private gameService: GamesService, private genresService: GenresService) { }
 
@@ -20,15 +21,17 @@ export class BuygameComponent implements OnInit {
     const id = this.activatedRoute.snapshot.params['id']
     this.gameService.getGame(id).subscribe((res) => {
       this.game = res;
+
+      this.genresService.getGenre(id).subscribe((res) => {
+        this.genre = res.name;
+      });
     });
+
   }
 
-  buyGame(e: Event) {
-    e.preventDefault()
-
+  buyGame() {
     //TODO comprar juego
   }
-
 }
 
 
