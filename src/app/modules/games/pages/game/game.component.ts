@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, inject } from '@angular/core';
 import { Game, Genre } from '../../../../../types';
 import { GamesService } from '../../../../game.service';
 import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { GenresService } from '../../../../genres.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -13,20 +14,24 @@ import { GenresService } from '../../../../genres.service';
   templateUrl: './game.component.html',
   styleUrl: './game.component.css'
 })
+
 export class GameComponent implements OnInit {
+  private modalService = inject(NgbModal);
+  closeResult = ""
+
   game?: Game = undefined
   genres?: Genre[] = []
   id = this.activatedRoute.snapshot.params['id']
 
-  gameData = new FormGroup({
-    title: new FormControl("", { nonNullable: true }),
-    genre: new FormControl("", { nonNullable: true }),
-    requirements: new FormGroup({
-      cpu: new FormControl(""),
-      mem: new FormControl(""),
-      disk: new FormControl("")
+  gameData = this.fb.group({
+    title: this.fb.control("", { nonNullable: true }),
+    genre: this.fb.control("", { nonNullable: true }),
+    requirements: this.fb.group({
+      cpu: this.fb.control(""),
+      mem: this.fb.control(""),
+      disk: this.fb.control("")
     }),
-    price: new FormControl("", { nonNullable: true }),
+    price: this.fb.control("", { nonNullable: true }),
     fields: this.fb.array<FormGroup<{
       id: FormControl<number>;
       name: FormControl<string>;
@@ -62,7 +67,9 @@ export class GameComponent implements OnInit {
         }
       });
     }
+
   }
+
 
   changeGenre(value: string) {
     if (this.genres) {
@@ -82,7 +89,7 @@ export class GameComponent implements OnInit {
     }
   }
 
-  handleSubmit(e: Event) {
+  handleSubmit(e: Event, content: TemplateRef<any>) {
     e.preventDefault()
 
     const dataToSend = {
@@ -99,22 +106,30 @@ export class GameComponent implements OnInit {
 
     if (this.id !== "create") {
       this.gameService.updateGame(this.id, dataToSend).subscribe((res) => {
-        // TODO mostrar modal exito
-        window.location.href = "/games"
+        this.openModalSucess(content)
       })
     } else {
-
       this.gameService.createGame(dataToSend).subscribe((res) => {
-        // TODO mostrar modal exito
-        window.location.href = "/games"
+        this.openModalSucess(content)
       })
     }
   }
 
-  deleteGame() {
+  deleteGame(content: TemplateRef<any>) {
     this.gameService.deleteGame(this.id).subscribe((res) => {
-      // TODO mostrar modal exito
-      window.location.href = "/games"
+      this.openModalSucess(content)
     })
+  }
+
+  openModalSucess(content: TemplateRef<any>) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-sucess' }).result.then(
+      (result) => {
+        this.closeResult = `Closed with: ${result}`;
+      }
+    );
+  }
+
+  sucessOk() {
+    window.location.href = "/games"
   }
 }

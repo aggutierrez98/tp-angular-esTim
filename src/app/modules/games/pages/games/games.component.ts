@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, inject } from '@angular/core';
 import { GamesService } from '../../../../game.service';
 import { Game } from '../../../../../types';
 import { RouterLink } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 declare var window: any
 
@@ -14,6 +15,8 @@ declare var window: any
 })
 
 export class GamesComponent implements OnInit {
+  private modalService = inject(NgbModal);
+  closeResult = ""
 
   games: Game[] = []
   gameToDelete?: number = undefined
@@ -31,10 +34,18 @@ export class GamesComponent implements OnInit {
     this.gameToDelete = id;
   }
 
-  eliminarJuego() {
+  eliminarJuego(content: TemplateRef<any>) {
     this.gameService.deleteGame(String(this.gameToDelete)).subscribe((res) => {
-      // TODO mostrar modal exito
+      this.openModalSucess(content)
     })
+  }
+
+  openModalSucess(content: TemplateRef<any>) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-sucess' }).result.then(
+      (result) => {
+        this.closeResult = `Closed with: ${result}`;
+      }
+    );
   }
 }
 

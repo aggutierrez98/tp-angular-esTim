@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, inject } from '@angular/core';
 import { Genre } from '../../../../../types';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { GenresService } from '../../../../genres.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-genre',
@@ -12,6 +13,9 @@ import { GenresService } from '../../../../genres.service';
   styleUrl: './genre.component.css'
 })
 export class GenreComponent implements OnInit {
+  private modalService = inject(NgbModal);
+  closeResult = ""
+
   genre?: Genre = undefined
   id = this.activatedRoute.snapshot.params['id']
 
@@ -68,7 +72,7 @@ export class GenreComponent implements OnInit {
     this.fieldsArray?.removeAt(index)
   }
 
-  handleSubmit(e: Event) {
+  handleSubmit(e: Event, content: TemplateRef<any>) {
     e.preventDefault()
 
     const dataToSend = {
@@ -78,23 +82,32 @@ export class GenreComponent implements OnInit {
 
     if (this.id !== "create") {
       this.genresService.updateGenre(this.id, dataToSend).subscribe((res) => {
-        // TODO mostrar modal exito
-        window.location.href = "/genres"
+        this.openModalSucess(content)
       })
     } else {
-
       this.genresService.createGenre(dataToSend).subscribe((res) => {
-        // TODO mostrar modal exito
-        window.location.href = "/genres"
+        this.openModalSucess(content)
       })
     }
   }
 
-  deleteGenre() {
+  deleteGenre(content: TemplateRef<any>) {
     this.genresService.deleteGenre(this.id).subscribe((res) => {
-      // TODO mostrar modal exito
-      window.location.href = "/genres"
+      this.openModalSucess(content)
+
     })
+  }
+
+  openModalSucess(content: TemplateRef<any>) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-sucess' }).result.then(
+      (result) => {
+        this.closeResult = `Closed with: ${result}`;
+      }
+    );
+  }
+
+  sucessOk() {
+    window.location.href = "/genres"
   }
 }
 

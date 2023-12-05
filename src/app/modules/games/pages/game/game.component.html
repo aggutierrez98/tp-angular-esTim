@@ -18,7 +18,7 @@
     <h2>Crear Juego:</h2>
     }
 
-    <form [formGroup]="gameData" (submit)="handleSubmit($event)">
+    <form [formGroup]="gameData" (submit)="handleSubmit($event, content)">
       <div class="form-group mt-3">
         <label for="title">Titulo</label>
         <input
@@ -43,7 +43,7 @@
           (change)="changeGenre(generos.value)"
           required
         >
-          <option disabled hidden value="">Seleccione genero</option>
+          <option disabled hidden selected value="">Seleccione genero</option>
           @for (genre of genres; track genre.id) {
           <option value="{{ genre.id }}">{{ genre.name }}</option>
           }
@@ -152,10 +152,40 @@
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
           Cancelar
         </button>
-        <button type="button" class="btn btn-primary" (click)="deleteGame()">
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="deleteGame(content)"
+        >
           Eliminar
         </button>
       </div>
     </div>
   </div>
 </div>
+
+<!-- MODAL EXITO -->
+<ng-template #content let-modal>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="Operacion exitosa">Operacion exitosa</h5>
+      <button
+        type="button"
+        class="close"
+        data-bs-dismiss="modal"
+        aria-label="Cancelar"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>Operacion realizada con exito.</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-info" (click)="sucessOk()">
+        Ok
+      </button>
+    </div>
+  </div>
+</ng-template>

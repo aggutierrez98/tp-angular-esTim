@@ -1,26 +1,49 @@
 {
-  "games": [
+  "users": [
     {
       "id": 1,
-      "title": "Ree loco I",
-      "requirements": {
-        "cpu": "5.6GHz",
-        "mem": "8GB",
-        "disk": "50GB"
-      },
-      "genre": 1,
-      "price": 30000
+      "email": "user@user.com",
+      "password": "user",
+      "role": "User"
     },
     {
       "id": 2,
-      "title": "Ree loco II",
+      "email": "user2@user2.com",
+      "password": "user2",
+      "role": "User"
+    },
+    {
+      "id": 3,
+      "email": "admin@admin.com",
+      "password": "admin",
+      "role": "Admin"
+    },
+    {
+      "id": 4,
+      "email": "agent@agent.com",
+      "password": "agent",
+      "role": "Agent"
+    }
+  ],
+  "games": [
+    {
+      "genre": 1,
+      "title": "Ree loco I",
+      "price": 30000,
       "requirements": {
         "cpu": "5.6GHz",
-        "mem": "8GB",
-        "disk": "50GB"
+        "disk": "50GB",
+        "mem": "8GB"
       },
-      "genre": 1,
-      "price": 25000
+      "fields": [
+        {
+          "id": 0,
+          "name": "Nivel de miedo",
+          "type": "number",
+          "value": "3333333333333333"
+        }
+      ],
+      "id": 1
     },
     {
       "genre": 4,
@@ -61,7 +84,7 @@
           "id": 0,
           "name": "Nivel de miedo",
           "type": "number",
-          "value": "23"
+          "value": "20"
         }
       ],
       "id": 4
