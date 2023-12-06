@@ -6,8 +6,9 @@
 
   <div class="container-fluid mt-3" style="margin: auto">
     <ul class="row row-cols-sm-2 row-cols-md-6 row-cols-lg-4 g-4 gx-5 ps-0">
-      <li appHighLigth class="col-sm-12 col-md-6 col-lg-4 card">
-        <div class="d-flex row shadow-lg" style="cursor: pointer">
+      @for(game of games; track game.id){
+      <li appHighLigth class="col-sm-12 col-md-6 col-lg-4">
+        <div class="d-flex p-2 row shadow-lg card" style="cursor: pointer">
           <div
             class="d-flex justify-content-between align-items-center mb-2 title-container"
           >
@@ -27,11 +28,13 @@
             class="btn btn-primary mb-2"
             data-bs-toggle="modal"
             data-bs-target="#modalPrestar"
+            (click)="prestarOpen(game)"
           >
             Prestar Juego
           </button>
         </div>
       </li>
+      }
 
       <!-- @for (game of games; track game.id) {
 
@@ -74,7 +77,9 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="Prestar Juego">Prestar Juego</h5>
+        <h5 class="modal-title" id="Prestar Juego">
+          Prestar {{ gameToLend?.title }}
+        </h5>
         <button
           type="button"
           class="close"
@@ -134,7 +139,7 @@
       </button>
     </div>
     <div class="modal-body">
-      <p>Juego {{ game?.title }} prestado a {{ userPrestado?.email }}.</p>
+      <p>Juego {{ gameToLend?.title }} prestado a {{ userPrestado?.email }}.</p>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-info" (click)="sucessOk()">

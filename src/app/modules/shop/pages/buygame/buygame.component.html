@@ -1,7 +1,7 @@
 <section class="game-container">
   <div class="container px-5">
     <section>
-      <h2>Detalles:</h2>
+      <h2 class="mt-4">Detalles:</h2>
 
       <div class="jumbotron mt-3 aling-items-center position-relative">
         <p
@@ -59,8 +59,13 @@
         class="btn btn-primary"
         data-bs-toggle="modal"
         data-bs-target="#modalComprar"
+        [disabled]="currentUser?.games?.includes(game?.id || 0)"
       >
-        Comprar Juego
+        {{
+          currentUser?.games?.includes(game?.id || 0)
+            ? "Juego en posesion"
+            : "Comprar Juego"
+        }}
       </button>
     </section>
   </div>

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GamesService } from '../../../../game.service';
 import { GenresService } from '../../../../genres.service';
-import { Game } from '../../../../../types';
+import { Game, SafeUser } from '../../../../../types';
+import { UsersService } from '../../../../users.service';
 
 @Component({
   selector: 'app-buygame',
@@ -14,8 +15,9 @@ import { Game } from '../../../../../types';
 export class BuygameComponent implements OnInit {
   game?: Game = undefined
   genre = ""
+  currentUser?: SafeUser | null = undefined;
 
-  constructor(private activatedRoute: ActivatedRoute, private gameService: GamesService, private genresService: GenresService) { }
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private gameService: GamesService, private genresService: GenresService, private usersService: UsersService) { }
 
   ngOnInit(): void {
     const id = this.activatedRoute.snapshot.params['id']
@@ -27,10 +29,13 @@ export class BuygameComponent implements OnInit {
       });
     });
 
+    this.currentUser = this.usersService.getCurrentUser();
   }
 
-  buyGame(id: number) {
-    window.location.href = `/shop/checkout/${id}`
+  buyGame(gameId: number) {
+    this.usersService.buyGame(gameId).subscribe(() => {
+      this.router.navigate(['/checkout'])
+    })
   }
 }
 

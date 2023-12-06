@@ -42,7 +42,7 @@ export const routes: Routes = [{
     canActivate: [AuthGuard],
 },
 {
-    path: 'shop/checkout/:id',
+    path: 'checkout',
     loadComponent: () => import('./modules/shop/pages/checkout/checkout.component').then(m => m.CheckoutComponent),
     canActivate: [AuthGuard],
 },

@@ -1,6 +1,6 @@
 import { Component, TemplateRef, inject } from '@angular/core';
 import { GamesService } from '../../../../game.service';
-import { Game, User } from '../../../../../types';
+import { Game, SafeUser, User } from '../../../../../types';
 import { ActivatedRoute } from '@angular/router';
 import { UsersService } from '../../../../users.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -16,22 +16,28 @@ export class CheckoutComponent {
   private modalService = inject(NgbModal);
   closeResult = ""
 
-  game?: Game = undefined
+  gameToLend?: Game = undefined
+  games?: Game[] = []
   users: User[] = []
   userPrestado?: User = undefined;
-
-  id = this.activatedRoute.snapshot.params['id']
+  currentUser?: SafeUser | null = undefined;
 
   constructor(private gameService: GamesService, private userService: UsersService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.gameService.getGame(this.id).subscribe((res) => {
-      this.game = res;
+    this.currentUser = this.userService.getCurrentUser();
+
+    this.gameService.getGames().subscribe((res) => {
+      this.games = res?.filter((game) => this.currentUser?.games?.includes(game.id))
     });
 
     this.userService.getUsers().subscribe((res) => {
       this.users = res;
     });
+  }
+
+  prestarOpen(game: Game) {
+    this.gameToLend = game;
   }
 
   prestarJuego(content: TemplateRef<any>) {

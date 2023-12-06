@@ -93,6 +93,21 @@ export class UsersService {
   }
 
   logOut(): void {
+    // sessionStorage.removeItem(this.userKey);
     localStorage.removeItem(this.userKey);
+  }
+
+  buyGame(gameId: number) {
+    let user = this.getCurrentUser()!
+    user.games = [...user.games || [], gameId]
+    return this.http.patch<User>(`${this.apiUrl}/users/${user.id}`, user).pipe(
+      catchError((error) => {
+        console.error('API Error:', error);
+        return throwError(() => new Error('Something went wrong. Please try again later.'));
+      }),
+      tap((safeUser) => {
+        localStorage.setItem(this.userKey, JSON.stringify(safeUser));
+      })
+    );
   }
 }
