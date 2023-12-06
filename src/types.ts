@@ -1,9 +1,11 @@
 export interface Game {
     id: number;
     title: string;
+    description: string;
     requirements: Requirements;
     genre: number;
     price: number;
+    imageUrl?: string | null,
     fields: {
         id: number
         name: string
@@ -32,7 +34,6 @@ export enum Role {
     Admin = 'Admin',
 }
 
-
 export interface User {
     id: number,
     name: string,
@@ -49,7 +50,6 @@ export type SafeUser = Omit<
     User,
     'password'
 >
-
 
 export function exclude<
     T extends Record<string, any>,

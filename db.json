@@ -30,79 +30,115 @@
   ],
   "games": [
     {
-      "genre": 1,
-      "title": "Ree loco I",
-      "price": 30000,
+      "genre": 2,
+      "title": "PlayerUnknown's Battlegrounds",
+      "description": "Forma equipo y participa en los campos de batalla para experimentar el Battle Royale original como solo existe en PUBG: BATTLEGROUNDS",
+      "price": 5000,
       "requirements": {
-        "cpu": "5.6GHz",
-        "disk": "50GB",
-        "mem": "8GB"
+        "cpu": "Intel Core i5-4430 / AMD FX-6300",
+        "disk": "50 GB",
+        "mem": "8 GB RAM"
       },
       "fields": [
         {
           "id": 0,
-          "name": "Nivel de miedo",
+          "name": "Cantidad de pistas",
           "type": "number",
-          "value": "3333333333333333"
+          "value": "100"
         }
       ],
-      "id": 1,
-      "isDlc": false
+      "isDlc": false,
+      "originalGame": "",
+      "imageUrl": "https://cdn1.epicgames.com/spt-assets/53ec4985296b4facbe3a8d8d019afba9/pubg-battlegrounds-1stfa.jpg",
+      "id": 1
+    },
+    {
+      "genre": 2,
+      "title": "Fornite",
+      "description": "Crea, juega y combate con amigos de forma gratuita en Fortnite. Consigue ser la última persona en pie en Battle Royale y Cero construcción, disfruta de conciertos y eventos en directo o descubre experiencias nuevas entre más de un millón de juegos diseñados por creadores: carreras, parkour, supervivencia zombi y mucho más. Cada isla de Fortnite tiene una clasificación por edad individual para que encuentres el juego adecuado para ti y tus amigos. ¡Tienes todo un mundo de posibilidades en Fortnite! ¿A qué esperas?",
+      "price": 10000,
+      "requirements": {
+        "cpu": "Core i3-3225 a 3,3 GHz",
+        "disk": "",
+        "mem": "8 GB de RAM"
+      },
+      "fields": [],
+      "isDlc": false,
+      "originalGame": "",
+      "imageUrl": "https://cdn2.unrealengine.com/the-future-of-fortnite-is-here-1920x1080-fd281a65c8ef.jpg",
+      "id": 2
     },
     {
       "genre": 4,
-      "title": "Juegardo",
-      "price": 50000,
+      "title": "Rocket League",
+      "description": "Rocket League combina el fútbol de estilo arcade con el caos a cuatro ruedas, unos controles fáciles y una competición fluida y basada en la física.",
+      "price": 5000,
       "requirements": {
-        "cpu": "5.6GHz",
-        "disk": "50GB",
-        "mem": "8GB"
+        "cpu": "Dual Core a 2,5 GHz",
+        "disk": "20 GB",
+        "mem": "4 GB"
       },
       "fields": [
         {
           "id": 0,
-          "name": "aaaaaaaaaa",
-          "type": "text",
-          "value": "asdasdasdsad"
-        },
-        {
-          "id": 1,
-          "name": "bbbbbbbbbbb",
+          "name": "Cantidad de pistas",
           "type": "number",
-          "value": "17"
+          "value": "100"
         }
       ],
-      "id": 3,
-      "isDlc": false
+      "isDlc": false,
+      "originalGame": "",
+      "imageUrl": "https://cdn2.unrealengine.com/egs-rocketleague-psyonixllc-g1a-00-1920x1080-f2e0c872ce06.jpg",
+      "id": 3
+    },
+    {
+      "genre": 2,
+      "title": "Grand Theft Auto V: Premium Edition",
+      "description": "Buscar en la tienda Grand Theft Auto V 4.7 Ideal para principiantes Diversidad de personajes Grand Theft Auto V: Premium Edition permite disfrutar por completo de la trama de GTA V y acceder a Grand Theft Auto Online y a todas las mejoras y contenidos existentes. También incluye el Criminal Enterprise Starter Pack, la forma más rápida de dar un impulso a tu imperio criminal en GTA Online.",
+      "price": 20000,
+      "requirements": {
+        "cpu": "Intel Core 2 Quad CPU Q6600 a 2,40 GHz (con 4 CPU) / AMD Phenom 9850 con procesador Quad-Core (con 4 CPU) a 2,5 GHz",
+        "disk": "90 GB de espacio disponible",
+        "mem": "4 GB de RAM"
+      },
+      "fields": [],
+      "isDlc": false,
+      "originalGame": "",
+      "imageUrl": "https://cdn2.unrealengine.com/Diesel%2Fproductv2%2Fgrand-theft-auto-v%2Fhome%2FGTAV_EGS_Artwork_1920x1080_Hero-Carousel_V06-1920x1080-1503e4b1320d5652dd4f57466c8bcb79424b3fc0.jpg",
+      "id": 4
     },
     {
       "genre": 1,
-      "title": "dsadasd",
-      "price": 123123,
+      "title": "The Evil Within",
+      "description": "Vive el terror de supervivencia en estado puro con The Evil Within, de Tango Gameworks y Shinji Mikami, creador de la saga Resident Evil. Este paquete incluye The Evil Within y los DLC del pase de temporada: The Assignment, The Consequence y The Executioner.",
+      "price": 7500,
       "requirements": {
-        "cpu": "5.6GHz",
-        "disk": "50GB",
-        "mem": "8GB"
+        "cpu": "Procesador i7 o equivalente con cuatro núcleos o más",
+        "disk": "50 GB de espacio disponible",
+        "mem": "4 GB de RAM"
       },
       "fields": [
         {
           "id": 0,
           "name": "Nivel de miedo",
           "type": "number",
-          "value": "20"
+          "value": "5"
         }
       ],
-      "id": 4,
-      "isDlc": false
+      "isDlc": false,
+      "originalGame": "",
+      "imageUrl": "https://cdn2.unrealengine.com/egs-theevilwithindigitalbundle-tangogameworks-editions-g1a-01-1920x1080-867ed5770834.jpg",
+      "id": 5
     },
     {
-      "genre": 5,
-      "title": "adsasdasdasdas",
-      "price": 12312321,
+      "genre": 1,
+      "title": "System Shock",
+      "description": "Despiertas a bordo de la estación Citadel, el principal centro de investigación de TriOptimum. Los mutantes devoran a sus antiguos compañeros de tripulación, unas pesadillas de carne adheridas a metal vagan por los oscuros pasillos y la inteligencia artificial de la estación, SHODAN, está apuntando el láser de minería de Citadel a la Tierra.",
+      "price": 4500,
       "requirements": {
-        "cpu": "5.6GHz",
-        "disk": "50GBdasdas",
-        "mem": "8GB"
+        "cpu": "Intel Core i5-2400 o AMD FX-8320",
+        "disk": "8 GB",
+        "mem": "4 GB"
       },
       "fields": [
         {
@@ -112,9 +148,10 @@
           "value": ""
         }
       ],
-      "isDlc": true,
-      "originalGame": "1",
-      "id": 5
+      "isDlc": false,
+      "originalGame": "",
+      "imageUrl": "https://cdn2.unrealengine.com/egs-afighttothedeathinthedepthsofspace-nightdivestudios-g1a-00-1920x1080-b521cb928324.jpg",
+      "id": 6
     }
   ],
   "genres": [
@@ -140,36 +177,15 @@
       "fields": []
     },
     {
-      "name": "Afip",
+      "name": "Carreras",
       "fields": [
         {
           "id": 0,
-          "name": "aaaaaaaaaa",
-          "type": "text"
-        },
-        {
-          "id": 1,
-          "name": "bbbbbbbbbbb",
+          "name": "Cantidad de pistas",
           "type": "number"
         }
       ],
       "id": 4
-    },
-    {
-      "name": "genero",
-      "fields": [
-        {
-          "id": 0,
-          "name": "campo",
-          "type": "text"
-        },
-        {
-          "id": 1,
-          "name": "numerico",
-          "type": "number"
-        }
-      ],
-      "id": 5
     }
   ]
 }

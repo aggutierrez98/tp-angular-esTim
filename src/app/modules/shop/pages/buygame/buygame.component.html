@@ -1,32 +1,22 @@
-<section class="game-container">
+<section class="mb-5">
   <div class="container px-5">
     <section>
       <h2 class="mt-4">Detalles:</h2>
 
-      <div class="jumbotron mt-3 aling-items-center position-relative">
-        <p
-          class="position-absolute w-5 h-5 bg-red top-0 end-0 bg-red text-secondary fs-1 fw-bold"
-        >
-          ${{ game?.price }}
-        </p>
-
+      <div class="jumbotron mt-3 aling-items-center">
         <h1 class="display-4">
           {{ game?.title }}
           <span class="badge rounded-pill text-light bg-dark fs-3 ms-2">{{
             genre
           }}</span>
-          <!--
-          <span
-            class="badge badge-info badge-pill badge-primary text-light bg-dark fs-3 mb-2 align-self-end"
-          >
-            ${{ game?.price }}
-          </span> -->
         </h1>
-
+        <img
+          class="img-thumbnail m-2"
+          src="{{ game?.imageUrl }}"
+          width="1000"
+        />
         <p class="lead">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Expedita
-          illum officia numquam qui quis sed velit vel tenetur magnam, explicabo
-          vero in, placeat, voluptatum ipsam minus harum est beatae sint.
+          {{ game?.description }}
         </p>
 
         <hr class="my-4" />
@@ -51,7 +41,10 @@
           </dd>
         </dl>
 
-        <span class="badge badge-secondary display-6">{{ genre }}</span>
+        <dt class="col-sm-3">Precio final:</dt>
+        <dd class="col-sm-9 fs-2 fw-bold">
+          <p>${{ game?.price }}</p>
+        </dd>
       </div>
 
       <button

@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 import { noAuthGuard } from './no-auth.guard';
 import { AuthGuard } from './auth.guard';
+import { roleGuard } from './role.guard';
+import { Role } from '../types';
 
 export const routes: Routes = [{
     path: '',
@@ -19,32 +21,50 @@ export const routes: Routes = [{
 {
     path: 'games',
     loadComponent: () => import('./modules/games/pages/games/games.component').then(m => m.GamesComponent),
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, roleGuard],
+    data: {
+        roles: [Role.Admin]
+    }
 },
 {
     path: 'games/:id',
     loadComponent: () => import('./modules/games/pages/game/game.component').then(m => m.GameComponent),
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, roleGuard],
+    data: {
+        roles: [Role.Admin]
+    }
 },
 {
     path: 'genres',
     loadComponent: () => import('./modules/genres/pages/genres/genres.component').then(m => m.GenresComponent),
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, roleGuard],
+    data: {
+        roles: [Role.Admin]
+    }
 },
 {
     path: 'genres/:id',
     loadComponent: () => import('./modules/genres/pages/genre/genre.component').then(m => m.GenreComponent),
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, roleGuard],
+    data: {
+        roles: [Role.Admin]
+    }
 },
 {
     path: 'shop/:id',
     loadComponent: () => import('./modules/shop/pages/buygame/buygame.component').then(m => m.BuygameComponent),
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, roleGuard],
+    data: {
+        roles: [Role.Admin, Role.User]
+    }
 },
 {
     path: 'checkout',
     loadComponent: () => import('./modules/shop/pages/checkout/checkout.component').then(m => m.CheckoutComponent),
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, roleGuard],
+    data: {
+        roles: [Role.Admin, Role.User]
+    }
 },
 {
     path: '**',

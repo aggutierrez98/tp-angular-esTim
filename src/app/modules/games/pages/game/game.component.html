@@ -1,4 +1,4 @@
-<section class="container mt-4">
+<section class="container mt-4 mb-4">
   <div>
     @if (game){
     <div class="d-flex justify-content-between flex-grow-1">
@@ -29,14 +29,33 @@
           placeholder="Ingresar titulo"
           formControlName="title"
         />
-        <small id="titleHelp" class="form-text text-muted"
-          >We'll never share your email with anyone else.</small
-        >
+      </div>
+      <div class="form-group mt-3">
+        <label for="description">Descripcion</label>
+        <input
+          type="text"
+          class="form-control"
+          id="description"
+          aria-describedby="descriptionHelp"
+          placeholder="Ingresar descripcion"
+          formControlName="description"
+        />
+      </div>
+      <div class="form-group mt-3">
+        <label for="imageUrl">Imagen</label>
+        <input
+          type="text"
+          class="form-control"
+          id="imageUrl"
+          aria-describedby="titleHelp"
+          placeholder="Ingresar link de imagen"
+          formControlName="imageUrl"
+        />
       </div>
 
       <div class="input-group my-3">
         <label for="genero" class="input-group-text">Es DCL?</label>
-        <div class="input-group-text form-check form-switch">
+        <div class="input-group-text form-check form-switch mb-0">
           <input
             class="form-check-input mx-2"
             type="checkbox"
@@ -206,7 +225,7 @@
         class="close"
         data-bs-dismiss="modal"
         aria-label="Cancelar"
-        (click)="modal.dismiss('Cross click')"
+        (click)="sucessOk()"
       >
         <span aria-hidden="true">&times;</span>
       </button>

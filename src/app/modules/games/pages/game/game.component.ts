@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef, inject } from '@angular/core';
 import { Game, Genre } from '../../../../../types';
 import { GamesService } from '../../../../game.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { GenresService } from '../../../../genres.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -26,9 +26,11 @@ export class GameComponent implements OnInit {
 
   gameData = this.fb.group({
     title: this.fb.control("", { nonNullable: true }),
+    description: this.fb.control("", { nonNullable: true }),
     genre: this.fb.control("", { nonNullable: true }),
     isDlc: this.fb.control(false, { nonNullable: true }),
     originalGame: this.fb.control(""),
+    imageUrl: this.fb.control(""),
     requirements: this.fb.group({
       cpu: this.fb.control(""),
       mem: this.fb.control(""),
@@ -43,7 +45,7 @@ export class GameComponent implements OnInit {
     }>>([]),
   });
 
-  constructor(private activatedRoute: ActivatedRoute, private gameService: GamesService, private genresService: GenresService, private fb: FormBuilder) { }
+  constructor(private activatedRoute: ActivatedRoute, private gameService: GamesService, private genresService: GenresService, private fb: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
 
@@ -59,10 +61,12 @@ export class GameComponent implements OnInit {
       this.gameService.getGame(this.id).subscribe((res) => {
         this.game = res;
         this.gameData.controls.title.setValue(res.title)
+        this.gameData.controls.description.setValue(res.description)
         this.gameData.controls.price.setValue(String(res.price))
         this.gameData.controls.genre.setValue(String(res.genre))
         this.gameData.controls.requirements.setValue(res.requirements)
         this.gameData.controls.isDlc.setValue(res.isDlc)
+        this.gameData.controls.imageUrl.setValue(res.imageUrl ?? null)
         this.gameData.controls.originalGame.setValue(res.originalGame ?? null)
 
         if (res.fields) {
@@ -104,6 +108,7 @@ export class GameComponent implements OnInit {
     const dataToSend = {
       genre: Number(this.gameData.controls.genre.value),
       title: this.gameData.controls.title.value,
+      description: this.gameData.controls.description.value,
       price: Number(this.gameData.controls.price.value),
       requirements: {
         cpu: this.gameData.controls.requirements.value.cpu || "",
@@ -113,14 +118,15 @@ export class GameComponent implements OnInit {
       fields: this.gameData.get("fields")?.value ?? [],
       isDlc: this.gameData.controls.isDlc.value,
       originalGame: this.gameData.controls.originalGame.value ?? null,
+      imageUrl: this.gameData.controls.imageUrl.value ?? null,
     }
 
     if (this.id !== "create") {
-      this.gameService.updateGame(this.id, dataToSend).subscribe((res) => {
+      this.gameService.updateGame(this.id, dataToSend).subscribe(() => {
         this.openModalSucess(content)
       })
     } else {
-      this.gameService.createGame(dataToSend).subscribe((res) => {
+      this.gameService.createGame(dataToSend).subscribe(() => {
         this.openModalSucess(content)
       })
     }
@@ -140,7 +146,8 @@ export class GameComponent implements OnInit {
     );
   }
   sucessOk() {
-    window.location.href = "/games"
+    this.modalService.dismissAll()
+    this.router.navigate(["/games"])
   }
 
   changeDlc(value: string) {

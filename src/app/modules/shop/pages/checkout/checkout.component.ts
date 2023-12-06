@@ -1,7 +1,7 @@
 import { Component, TemplateRef, inject } from '@angular/core';
 import { GamesService } from '../../../../game.service';
 import { Game, SafeUser, User } from '../../../../../types';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UsersService } from '../../../../users.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -22,7 +22,7 @@ export class CheckoutComponent {
   userPrestado?: User = undefined;
   currentUser?: SafeUser | null = undefined;
 
-  constructor(private gameService: GamesService, private userService: UsersService, private activatedRoute: ActivatedRoute) { }
+  constructor(private gameService: GamesService, private userService: UsersService, private router: Router) { }
 
   ngOnInit(): void {
     this.currentUser = this.userService.getCurrentUser();
@@ -59,6 +59,7 @@ export class CheckoutComponent {
   }
 
   sucessOk() {
-    window.location.href = "/"
+    this.modalService.dismissAll()
+    this.router.navigate(["/"])
   }
 }

@@ -1,5 +1,5 @@
 <!-- <section class="games-container container"> -->
-<section class="container">
+<section class="container mb-5">
   <div class="title-container mt-4">
     <h2>Tienda de juegos:</h2>
   </div>
@@ -7,29 +7,37 @@
   <div class="container-fluid mt-3" style="margin: auto">
     @if (games.length >= 1){
 
-    <ul class="row row-cols-sm-2 row-cols-md-6 row-cols-lg-4 g-4 gx-5 ps-0">
+    <!-- <ul class="row row-cols-sm-2 row-cols-md-6 row-cols-lg-4 g-4 gx-5 ps-0"> -->
+    <ul class="row g-4 gx-5 ps-0 row-cols-sm-8 row-cols-md-8 row-cols-lg-4">
       @for (game of games; track game.id) {
 
-      <li appHighLigth class="col-sm-12 col-md-6 col-lg-4">
-        <div
-          routerLink="/shop/{{ game.id }}"
-          class="d-flex row card shadow-lg"
-          style="cursor: pointer"
-        >
+      <li appHighLigth class="col-sm-12 col-md-12 col-lg-6">
+        <div class="d-flex row card shadow-lg p-2">
           <div
             class="d-flex justify-content-between align-items-center mb-2 title-container"
           >
-            <span class="fw-bold fs-2">
+            <span class="fw-bold fs-4 text-truncate" title="{{ game.title }}">
               {{ game.title }}
             </span>
-            <span class="fs-3"> ${{ game.price }} </span>
           </div>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quibusdam
-            minima omnis animi iure ullam voluptate similique in. Eum corrupti
-            blanditiis commodi, ducimus quisquam temporibus doloribus dolorum
-            incidunt maiores error ipsam!
-          </p>
+          <img
+            class="img-thumbnail"
+            src="{{ game.imageUrl }}"
+            width="400"
+            height="200"
+          />
+          <div class="d-flex aling-items-center justify-content-between mt-2">
+            <span class="badge rounded-pill text-bg-dark fs-5"
+              >${{ game.price }}</span
+            >
+            <button
+              routerLink="/shop/{{ game.id }}"
+              type="button"
+              class="btn btn-outline-dark"
+            >
+              Comprar
+            </button>
+          </div>
         </div>
       </li>
 

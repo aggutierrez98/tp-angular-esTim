@@ -1,9 +1,10 @@
-import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UsersService } from './users.service';
-import { SafeUser } from '../types';
+import { Role, SafeUser } from '../types';
+
 
 @Component({
   selector: 'app-root',
@@ -15,6 +16,8 @@ import { SafeUser } from '../types';
 export class AppComponent implements OnInit {
   title = 'EsTim';
   currentUser?: SafeUser | null
+  Role = Role
+  isAuthRoute = false
 
   constructor(
     private router: Router,
@@ -22,10 +25,10 @@ export class AppComponent implements OnInit {
   ) {
     this.router.events.subscribe((ev) => {
       if (ev instanceof NavigationEnd) {
+        this.isAuthRoute = ev.url.includes("auth");
         this.currentUser = this.usersService.getCurrentUser()
       }
     });
-
   }
   ngOnInit(): void {
     this.currentUser = this.usersService.getCurrentUser()

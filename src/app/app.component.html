@@ -15,18 +15,30 @@
           <span class="navbar-toggler-icon"></span>
         </button>
 
+        @if(!isAuthRoute){
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item" routerLinkActive="active">
-              <a routerLink="/games" class="nav-link">Juegos</a>
+              <a
+                routerLink="/games"
+                class="nav-link {{
+                  currentUser?.role !== Role.Admin ? 'disabled' : ''
+                }}"
+                >Juegos</a
+              >
             </li>
             <li class="nav-item" routerLinkActive="active">
-              <a routerLink="/genres" class="nav-link">Generos</a>
+              <a
+                routerLink="/genres"
+                class="nav-link {{
+                  currentUser?.role !== Role.Admin ? 'disabled' : ''
+                }}"
+                >Generos</a
+              >
             </li>
           </ul>
         </div>
-
-        @if(currentUser){
+        } @if(currentUser){
         <div ngbDropdown class="d-inline-block">
           <button
             type="button"
@@ -38,6 +50,9 @@
             {{ currentUser.email }}
           </button>
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <p class="mb-2 text-center fw-bold">
+              Rol: {{ currentUser.role.toLocaleUpperCase() }}
+            </p>
             <button routerLink="/checkout" ngbDropdownItem>
               <i
                 class="bi bi-controller"
@@ -54,7 +69,7 @@
             </button>
           </div>
         </div>
-        } @else {
+        } @else if(!isAuthRoute){
         <button
           type="button"
           routerLink="/auth/login"

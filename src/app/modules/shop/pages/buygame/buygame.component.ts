@@ -23,8 +23,7 @@ export class BuygameComponent implements OnInit {
     const id = this.activatedRoute.snapshot.params['id']
     this.gameService.getGame(id).subscribe((res) => {
       this.game = res;
-
-      this.genresService.getGenre(id).subscribe((res) => {
+      this.genresService.getGenre(res.genre.toString()).subscribe((res) => {
         this.genre = res.name;
       });
     });

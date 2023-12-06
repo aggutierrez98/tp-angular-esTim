@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef, inject } from '@angular/core';
 import { Genre } from '../../../../../types';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { GenresService } from '../../../../genres.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -28,7 +28,7 @@ export class GenreComponent implements OnInit {
     }>>([], [Validators.required]),
   });
 
-  constructor(private activatedRoute: ActivatedRoute, private genresService: GenresService, private fb: FormBuilder) { }
+  constructor(private activatedRoute: ActivatedRoute, private genresService: GenresService, private fb: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
     if (this.id && this.id !== "create") {
@@ -107,7 +107,8 @@ export class GenreComponent implements OnInit {
   }
 
   sucessOk() {
-    window.location.href = "/genres"
+    this.modalService.dismissAll()
+    this.router.navigate(["/genres"])
   }
 }
 
