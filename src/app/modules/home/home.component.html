@@ -10,10 +10,10 @@
     <ul class="row row-cols-sm-2 row-cols-md-6 row-cols-lg-4 g-4 gx-5 ps-0">
       @for (game of games; track game.id) {
 
-      <li appHighLigth class="col-sm-12 col-md-6 col-lg-4 card">
+      <li appHighLigth class="col-sm-12 col-md-6 col-lg-4">
         <div
           routerLink="/shop/{{ game.id }}"
-          class="d-flex row shadow-lg"
+          class="d-flex row card shadow-lg"
           style="cursor: pointer"
         >
           <div

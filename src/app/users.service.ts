@@ -55,8 +55,7 @@ export class UsersService {
       tap((safeUser) => {
         // admin1234
         // sessionStorage.setItem(this.userKey, JSON.stringify(safeUser));
-        // localStorage.setItem(this.userKey, JSON.stringify(safeUser));
-        console.log("aca")
+        localStorage.setItem(this.userKey, JSON.stringify(safeUser));
       })
     );
   }
@@ -94,6 +93,6 @@ export class UsersService {
   }
 
   logOut(): void {
-    sessionStorage.removeItem(this.userKey);
+    localStorage.removeItem(this.userKey);
   }
 }

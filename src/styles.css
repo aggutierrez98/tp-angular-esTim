@@ -4,6 +4,10 @@ button.close {
   border-radius: 50%;
 }
 
+ul {
+  list-style: none;
+}
+
 h1 {
   font-size: 3.125rem;
   color: var(--gray-900);

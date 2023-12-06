@@ -38,7 +38,8 @@ export interface User {
     name: string,
     email: string
     password: string
-    role: Role
+    role: Role,
+    games?: number[]
 }
 
 export type LogInRequest = Omit<User, 'id' | 'role' | 'name'>

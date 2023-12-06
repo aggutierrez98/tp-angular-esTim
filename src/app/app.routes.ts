@@ -5,7 +5,6 @@ import { AuthGuard } from './auth.guard';
 export const routes: Routes = [{
     path: '',
     loadComponent: () => import('./modules/home/home.component').then(m => m.HomeComponent),
-    canActivate: [noAuthGuard],
 },
 {
     path: 'auth/login',

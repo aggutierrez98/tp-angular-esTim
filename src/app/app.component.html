@@ -25,6 +25,44 @@
             </li>
           </ul>
         </div>
+
+        @if(currentUser){
+        <div ngbDropdown class="d-inline-block">
+          <button
+            type="button"
+            class="btn btn-outline-secondary text-dark"
+            id="dropdownBasic1"
+            ngbDropdownToggle
+          >
+            <i class="bi bi-person"></i>
+            {{ currentUser.email }}
+          </button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button routerLink="" ngbDropdownItem>
+              <i
+                class="bi bi-controller"
+                style="font-size: 1rem; margin-right: 10px"
+              ></i>
+              Mis Juegos
+            </button>
+            <button ngbDropdownItem (click)="logout()">
+              <i
+                class="bi bi-box-arrow-right"
+                style="font-size: 1rem; margin-right: 10px"
+              ></i>
+              Cerrar Sesion
+            </button>
+          </div>
+        </div>
+        } @else {
+        <button
+          type="button"
+          routerLink="/auth/login"
+          class="btn btn-outline-secondary text-dark"
+        >
+          Iniciar Sesion
+        </button>
+        }
       </div>
     </nav>
   </div>
