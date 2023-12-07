@@ -37,34 +37,57 @@
         </div>
       </li>
       }
-
-      <!-- @for (game of games; track game.id) {
-
-            <li appHighLigth class="col-sm-12 col-md-6 col-lg-4 card">
-              <div
-                class="d-flex row shadow-lg"
-                style="cursor: pointer"
-              >
-                <div
-                  class="d-flex justify-content-between align-items-center mb-2 title-container"
-                >
-                  <span class="fw-bold fs-2">
-                    {{ game.title }}
-                  </span>
-                  <span class="fs-3"> ${{ game.price }} </span>
-                </div>
-                <p>
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quibusdam
-                  minima omnis animi iure ullam voluptate similique in. Eum corrupti
-                  blanditiis commodi, ducimus quisquam temporibus doloribus dolorum
-                  incidunt maiores error ipsam!
-                </p>
-              </div>
-            </li>
-
-            } -->
     </ul>
+
+    @if(games?.length === 0){
     <span class="badge badge-primary">Aún no hay juegos</span>
+    }
+  </div>
+</section>
+
+<section class="container">
+  <div class="title-container mt-4">
+    <h2>Juegos prestados:</h2>
+  </div>
+
+  <div class="container-fluid mt-3" style="margin: auto">
+    <ul class="row row-cols-sm-2 row-cols-md-6 row-cols-lg-4 g-4 gx-5 ps-0">
+      @for(game of gamesBorrowed; track game.id){
+
+      <li appHighLigth class="col-sm-12 col-md-12 col-lg-6">
+        <div class="d-flex row card shadow-lg p-2">
+          <div
+            class="d-flex justify-content-between align-items-center mb-2 title-container"
+          >
+            <span class="fw-bold fs-2 text-truncate" title="{{ game.title }}">
+              {{ game.title }}
+            </span>
+          </div>
+          <img
+            class="img-thumbnail"
+            src="{{ game.imageUrl }}"
+            width="400"
+            height="200"
+          />
+          <div class="d-flex aling-items-center justify-content-between mt-2">
+            <button
+              type="button"
+              class="btn btn-primary mb-2"
+              data-bs-toggle="modal"
+              data-bs-target="#modalDevolver"
+              (click)="devolverOpen(game)"
+            >
+              Devolver Juego
+            </button>
+          </div>
+        </div>
+      </li>
+      }
+    </ul>
+
+    @if(gamesBorrowed?.length === 0){
+    <span class="badge badge-primary">Aún no hay juegos en prestamo</span>
+    }
   </div>
 </section>
 
@@ -119,6 +142,46 @@
           (click)="prestarJuego(content)"
         >
           Prestar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="modalDevolver"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="Modal devolver juego"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="Devolver Juego">
+          Devolver {{ gameToLend?.title }}
+        </h5>
+        <button
+          type="button"
+          class="close"
+          data-bs-dismiss="modal"
+          aria-label="Cancelar"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancelar
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="devolverJuego(content)"
+        >
+          Devolver
         </button>
       </div>
     </div>

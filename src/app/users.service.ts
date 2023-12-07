@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, map, tap, throwError } from 'rxjs';
+import { Observable, catchError, map, switchMap, tap, throwError } from 'rxjs';
 import { LogInRequest, RegisterRequest, Role, SafeUser, User, exclude } from '../types';
 import { environment } from '../environment';
 
@@ -109,5 +109,39 @@ export class UsersService {
         localStorage.setItem(this.userKey, JSON.stringify(safeUser));
       })
     );
+  }
+
+  lendGame(gameId: number, userToLendId: number) {
+    const user = this.getCurrentUser()!
+    return this.getUser(String(userToLendId)).pipe(
+      switchMap((userToLend) => {
+        if (userToLend.borrowedGames?.findIndex(bg => bg.gameId === gameId) !== -1) {
+          return throwError(() => new Error('Este usuario ya cuenta con este juego prestado.'));
+        }
+        return this.http.patch<User>(`${this.apiUrl}/users/${userToLendId}`, {
+          borrowedGames: [...userToLend.borrowedGames ?? [], { gameId, userId: user.id }]
+        }).pipe(
+          catchError((error) => {
+            console.error('API Error:', error);
+            return throwError(() => new Error('Something went wrong. Please try again later.'));
+          }),
+        )
+      })
+    )
+  }
+
+  returnGame(gameId: number) {
+    const user = this.getCurrentUser()!
+    return this.http.patch<User>(`${this.apiUrl}/users/${user.id}`, {
+      borrowedGames: user.borrowedGames?.filter(bg => bg.gameId === gameId)
+    }).pipe(
+      catchError((error) => {
+        console.error('API Error:', error);
+        return throwError(() => new Error('Something went wrong. Please try again later.'));
+      }),
+      tap((safeUser) => {
+        localStorage.setItem(this.userKey, JSON.stringify(safeUser));
+      })
+    )
   }
 }

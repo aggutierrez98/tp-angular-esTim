@@ -14,11 +14,12 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class CheckoutComponent {
   private modalService = inject(NgbModal);
-  closeResult = ""
-
-  gameToLend?: Game = undefined
   games?: Game[] = []
+  gamesBorrowed?: Game[] = []
   users: User[] = []
+  closeResult = ""
+  gameToLend?: Game = undefined
+  gameToReturn?: Game = undefined
   userPrestado?: User = undefined;
   currentUser?: SafeUser | null = undefined;
 
@@ -29,6 +30,7 @@ export class CheckoutComponent {
 
     this.gameService.getGames().subscribe((res) => {
       this.games = res?.filter((game) => this.currentUser?.games?.includes(game.id))
+      this.gamesBorrowed = res?.filter((game) => (this.currentUser?.borrowedGames ?? []).findIndex(bg => bg.gameId === game.id) !== -1)
     });
 
     this.userService.getUsers().subscribe((res) => {
@@ -40,8 +42,35 @@ export class CheckoutComponent {
     this.gameToLend = game;
   }
 
+  devolverOpen(game: Game) {
+    this.gameToReturn = game;
+  }
+
   prestarJuego(content: TemplateRef<any>) {
-    this.openModalSucess(content)
+    if (this.gameToLend && this.userPrestado)
+      this.userService.lendGame(this.gameToLend.id, this.userPrestado.id).subscribe({
+        complete: () => {
+          this.openModalSucess(content)
+        },
+        error: () => {
+          //TODO MOSTRAR MODAL ERROR
+          // this.openModalError(content)
+        }
+      })
+  }
+
+  devolverJuego(content: TemplateRef<any>) {
+    if (this.gameToReturn) {
+      this.userService.returnGame(Number(this.gameToReturn.id)).subscribe({
+        complete: () => {
+          this.openModalSucess(content)
+        },
+        error: () => {
+          //TODO MOSTRAR MODAL ERROR
+          // this.openModalError(content)
+        }
+      })
+    }
   }
 
   seleccionarUsuario(userId: string) {
