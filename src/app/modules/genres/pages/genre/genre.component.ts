@@ -1,9 +1,10 @@
-import { Component, OnInit, TemplateRef, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Genre } from '../../../../../types';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GenresService } from '../../../../genres.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SpinnerService } from '../../../../spinner.service';
+import { ToastService } from '../../../../toast.service';
 
 @Component({
   selector: 'app-genre',
@@ -13,7 +14,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrl: './genre.component.css'
 })
 export class GenreComponent implements OnInit {
-  private modalService = inject(NgbModal);
   closeResult = ""
 
   genre?: Genre = undefined
@@ -28,7 +28,13 @@ export class GenreComponent implements OnInit {
     }>>([], [Validators.required]),
   });
 
-  constructor(private activatedRoute: ActivatedRoute, private genresService: GenresService, private fb: FormBuilder, private router: Router) { }
+  constructor(private activatedRoute: ActivatedRoute,
+    private genresService: GenresService,
+    private fb: FormBuilder,
+    private router: Router,
+    private spinnerService: SpinnerService,
+    private toastService: ToastService
+  ) { }
 
   ngOnInit(): void {
     if (this.id && this.id !== "create") {
@@ -72,8 +78,9 @@ export class GenreComponent implements OnInit {
     this.fieldsArray?.removeAt(index)
   }
 
-  handleSubmit(e: Event, content: TemplateRef<any>) {
+  handleSubmit(e: Event) {
     e.preventDefault()
+    this.spinnerService.setLoading(true);
 
     const dataToSend = {
       name: this.genreData.controls.name.value,
@@ -82,33 +89,28 @@ export class GenreComponent implements OnInit {
 
     if (this.id !== "create") {
       this.genresService.updateGenre(this.id, dataToSend).subscribe((res) => {
-        this.openModalSucess(content)
+        this.spinnerService.setLoading(false);
+        this.router.navigate(["/genres"])
+        this.toastService.showSuccess("Genero editado exitosamente")
       })
     } else {
       this.genresService.createGenre(dataToSend).subscribe((res) => {
-        this.openModalSucess(content)
+        this.spinnerService.setLoading(false);
+        this.router.navigate(["/genres"])
+        this.toastService.showSuccess("Genero creado exitosamente")
       })
     }
   }
 
-  deleteGenre(content: TemplateRef<any>) {
-    this.genresService.deleteGenre(this.id).subscribe((res) => {
-      this.openModalSucess(content)
+  deleteGenre() {
+    this.spinnerService.setLoading(true);
 
+    this.genresService.deleteGenre(this.id).subscribe((res) => {
+      this.spinnerService.setLoading(false);
+      this.router.navigate(["/genres"])
+      this.toastService.showSuccess("Genero eliminado exitosamente")
     })
   }
 
-  openModalSucess(content: TemplateRef<any>) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-sucess' }).result.then(
-      (result) => {
-        this.closeResult = `Closed with: ${result}`;
-      }
-    );
-  }
-
-  sucessOk() {
-    this.modalService.dismissAll()
-    this.router.navigate(["/genres"])
-  }
 }
 

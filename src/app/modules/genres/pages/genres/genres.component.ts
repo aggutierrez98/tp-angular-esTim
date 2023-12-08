@@ -3,6 +3,8 @@ import { Genre } from '../../../../../types';
 import { GenresService } from '../../../../genres.service';
 import { RouterLink } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SpinnerService } from '../../../../spinner.service';
+import { ToastService } from '../../../../toast.service';
 
 @Component({
   selector: 'app-genres',
@@ -12,13 +14,16 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrl: './genres.component.css'
 })
 export class GenresComponent implements OnInit {
-  private modalService = inject(NgbModal);
   closeResult = ""
 
   genres: Genre[] = []
   genreToDelete?: number = undefined
 
-  constructor(private genreService: GenresService) { }
+  constructor(
+    private genreService: GenresService,
+    private spinnerService: SpinnerService,
+    private toastService: ToastService
+  ) { }
 
   ngOnInit(): void {
     this.genreService.getGenres().subscribe((res) => {
@@ -30,20 +35,14 @@ export class GenresComponent implements OnInit {
     this.genreToDelete = id;
   }
 
-  eliminarGenero(content: TemplateRef<any>) {
+  eliminarGenero() {
+    this.spinnerService.setLoading(true);
     this.genreService.deleteGenre(String(this.genreToDelete)).subscribe((res) => {
-      this.openModalSucess(content)
+      this.spinnerService.setLoading(false);
+      this.toastService.showSuccess("Genero eliminado exitosamente")
+      this.ngOnInit()
     })
   }
-
-  openModalSucess(content: TemplateRef<any>) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-sucess' }).result.then(
-      (result) => {
-        this.closeResult = `Closed with: ${result}`;
-      }
-    );
-  }
-
 }
 
 

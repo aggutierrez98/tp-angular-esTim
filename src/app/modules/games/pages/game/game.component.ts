@@ -1,10 +1,11 @@
-import { Component, OnInit, TemplateRef, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Game, Genre } from '../../../../../types';
 import { GamesService } from '../../../../game.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { GenresService } from '../../../../genres.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SpinnerService } from '../../../../spinner.service';
+import { ToastService } from '../../../../toast.service';
 
 
 @Component({
@@ -16,7 +17,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 
 export class GameComponent implements OnInit {
-  private modalService = inject(NgbModal);
   closeResult = ""
 
   game?: Game = undefined
@@ -45,7 +45,14 @@ export class GameComponent implements OnInit {
     }>>([]),
   });
 
-  constructor(private activatedRoute: ActivatedRoute, private gameService: GamesService, private genresService: GenresService, private fb: FormBuilder, private router: Router) { }
+  constructor(private activatedRoute: ActivatedRoute,
+    private gameService: GamesService,
+    private genresService: GenresService,
+    private fb: FormBuilder,
+    private router: Router,
+    private spinnerService: SpinnerService,
+    private toastService: ToastService
+  ) { }
 
   ngOnInit(): void {
 
@@ -102,8 +109,9 @@ export class GameComponent implements OnInit {
     }
   }
 
-  handleSubmit(e: Event, content: TemplateRef<any>) {
+  handleSubmit(e: Event) {
     e.preventDefault()
+    this.spinnerService.setLoading(true);
 
     const dataToSend = {
       genre: Number(this.gameData.controls.genre.value),
@@ -123,31 +131,26 @@ export class GameComponent implements OnInit {
 
     if (this.id !== "create") {
       this.gameService.updateGame(this.id, dataToSend).subscribe(() => {
-        this.openModalSucess(content)
+        this.spinnerService.setLoading(false);
+        this.router.navigate(["/games"])
+        this.toastService.showSuccess("Juego editado exitosamente")
       })
     } else {
       this.gameService.createGame(dataToSend).subscribe(() => {
-        this.openModalSucess(content)
+        this.spinnerService.setLoading(false);
+        this.router.navigate(["/games"])
+        this.toastService.showSuccess("Juego creado exitosamente")
       })
     }
   }
 
-  deleteGame(content: TemplateRef<any>) {
+  deleteGame() {
+    this.spinnerService.setLoading(true);
     this.gameService.deleteGame(this.id).subscribe((res) => {
-      this.openModalSucess(content)
+      this.spinnerService.setLoading(false);
+      this.toastService.showSuccess("Juego elimado exitosamente")
+      this.router.navigate(["/games"])
     })
-  }
-
-  openModalSucess(content: TemplateRef<any>) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-sucess' }).result.then(
-      (result) => {
-        this.closeResult = `Closed with: ${result}`;
-      }
-    );
-  }
-  sucessOk() {
-    this.modalService.dismissAll()
-    this.router.navigate(["/games"])
   }
 
   changeDlc(value: string) {

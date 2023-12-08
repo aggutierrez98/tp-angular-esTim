@@ -13,30 +13,43 @@ export class UsersService {
 
   constructor(private http: HttpClient) { }
 
-  getUsers(): Observable<User[]> {
+  getUsers(): Observable<SafeUser[]> {
     return this.http.get<User[]>(`${this.apiUrl}/users`).pipe(
       catchError((error) => {
         console.error('API Error:', error);
         return throwError(
           () => new Error('Something went wrong. Please try again later.')
         );
-      })
+      }),
+      map((userArray) => {
+        return userArray.map((user) => {
+          const safeUser: SafeUser = exclude<User, 'password'>(user, [
+            'password',
+          ]);
+          return safeUser;
+        })
+      }),
     );
   }
 
-  getUser(id: string): Observable<User> {
+  getUser(id: string): Observable<SafeUser> {
     return this.http.get<User>(`${this.apiUrl}/users/${id}`).pipe(
       catchError((error) => {
         console.error('API Error:', error);
         return throwError(
           () => new Error('Something went wrong. Please try again later.')
         );
-      })
+      }),
+      map((user) => {
+        const safeUser: SafeUser = exclude<User, 'password'>(user, [
+          'password',
+        ]);
+        return safeUser;
+      }),
     );
   }
 
   logIn(data: LogInRequest): Observable<SafeUser> {
-
     const params = new HttpParams()
       .set('email', data.email)
       .set('password', data.password);
@@ -53,7 +66,6 @@ export class UsersService {
         }
       }),
       tap((safeUser) => {
-        // admin1234
         // sessionStorage.setItem(this.userKey, JSON.stringify(safeUser));
         localStorage.setItem(this.userKey, JSON.stringify(safeUser));
       })
@@ -115,7 +127,7 @@ export class UsersService {
     const user = this.getCurrentUser()!
     return this.getUser(String(userToLendId)).pipe(
       switchMap((userToLend) => {
-        if (userToLend.borrowedGames?.findIndex(bg => bg.gameId === gameId) !== -1) {
+        if ((userToLend.borrowedGames || []).findIndex(bg => bg.gameId === gameId) !== -1) {
           return throwError(() => new Error('Este usuario ya cuenta con este juego prestado.'));
         }
         return this.http.patch<User>(`${this.apiUrl}/users/${userToLendId}`, {

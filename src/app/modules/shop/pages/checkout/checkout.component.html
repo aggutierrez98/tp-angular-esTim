@@ -1,6 +1,6 @@
 <!-- <section class="games-container container"> -->
-<section class="container">
-  <div class="title-container mt-4">
+<section class="container my-4 pb-2">
+  <div class="title-container">
     <h2>Juegos comprados:</h2>
   </div>
 
@@ -39,15 +39,17 @@
       }
     </ul>
 
-    @if(games?.length === 0){
-    <span class="badge badge-primary">Aún no hay juegos</span>
+    @if(!games?.length){
+    <span class="badge badge-primary bg-dark fs-6 p-3">
+      Aún no hay juegos comprados
+    </span>
     }
   </div>
 </section>
 
-<section class="container">
+<section class="container my-4 pb-2">
   <div class="title-container mt-4">
-    <h2>Juegos prestados:</h2>
+    <h2>Juegos en prestamo:</h2>
   </div>
 
   <div class="container-fluid mt-3" style="margin: auto">
@@ -85,8 +87,10 @@
       }
     </ul>
 
-    @if(gamesBorrowed?.length === 0){
-    <span class="badge badge-primary">Aún no hay juegos en prestamo</span>
+    @if(!gamesBorrowed?.length){
+    <span class="badge badge-primary bg-dark fs-6 p-3">
+      Aún no hay juegos en prestamo
+    </span>
     }
   </div>
 </section>
@@ -139,7 +143,8 @@
         <button
           type="button"
           class="btn btn-primary"
-          (click)="prestarJuego(content)"
+          (click)="prestarJuego()"
+          data-bs-dismiss="modal"
         >
           Prestar
         </button>
@@ -160,7 +165,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="Devolver Juego">
-          Devolver {{ gameToLend?.title }}
+          Devolver {{ gameToReturn?.title }}
         </h5>
         <button
           type="button"
@@ -171,6 +176,14 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <div class="modal-body">
+        <p>
+          Devolver este juego a
+          <span class="fw-bold">
+            {{ gameToReturn?.user?.name }}({{ gameToReturn?.user?.email }})
+          </span>
+        </p>
+      </div>
 
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
@@ -179,7 +192,8 @@
         <button
           type="button"
           class="btn btn-primary"
-          (click)="devolverJuego(content)"
+          (click)="devolverJuego()"
+          data-bs-dismiss="modal"
         >
           Devolver
         </button>
@@ -187,29 +201,3 @@
     </div>
   </div>
 </div>
-
-<!-- MODAL EXITO -->
-<ng-template #content let-modal>
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title" id="Operacion exitosa">Operacion exitosa</h5>
-      <button
-        type="button"
-        class="close"
-        data-bs-dismiss="modal"
-        aria-label="Cancelar"
-        (click)="sucessOk()"
-      >
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <p>Juego {{ gameToLend?.title }} prestado a {{ userPrestado?.email }}.</p>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-info" (click)="sucessOk()">
-        Ok
-      </button>
-    </div>
-  </div>
-</ng-template>

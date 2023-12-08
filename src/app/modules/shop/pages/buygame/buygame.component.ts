@@ -4,6 +4,8 @@ import { GamesService } from '../../../../game.service';
 import { GenresService } from '../../../../genres.service';
 import { Game, SafeUser } from '../../../../../types';
 import { UsersService } from '../../../../users.service';
+import { SpinnerService } from '../../../../spinner.service';
+import { ToastService } from '../../../../toast.service';
 
 @Component({
   selector: 'app-buygame',
@@ -17,7 +19,14 @@ export class BuygameComponent implements OnInit {
   genre = ""
   currentUser?: SafeUser | null = undefined;
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router, private gameService: GamesService, private genresService: GenresService, private usersService: UsersService) { }
+  constructor(private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private gameService: GamesService,
+    private genresService: GenresService,
+    private usersService: UsersService,
+    private spinnerService: SpinnerService,
+    private toastService: ToastService
+  ) { }
 
   ngOnInit(): void {
     const id = this.activatedRoute.snapshot.params['id']
@@ -32,8 +41,11 @@ export class BuygameComponent implements OnInit {
   }
 
   buyGame(gameId: number) {
+    this.spinnerService.setLoading(true);
     this.usersService.buyGame(gameId).subscribe(() => {
       this.router.navigate(['/checkout'])
+      this.spinnerService.setLoading(false);
+      this.toastService.showSuccess("Juego comprado exitosamente")
     })
   }
 }

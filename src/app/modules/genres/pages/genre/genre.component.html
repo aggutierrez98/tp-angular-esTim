@@ -18,7 +18,7 @@
     <h2>Crear Genero:</h2>
     }
 
-    <form [formGroup]="genreData" (submit)="handleSubmit($event, content)">
+    <form [formGroup]="genreData" (submit)="handleSubmit($event)">
       <div class="form-group mt-3">
         <label for="name">Nombre</label>
         <input
@@ -106,8 +106,9 @@
         </button>
         <button
           type="button"
-          class="btn btn-primary"
-          (click)="deleteGenre(content)"
+          class="btn btn-danger"
+          (click)="deleteGenre()"
+          data-bs-dismiss="modal"
         >
           Eliminar
         </button>
@@ -115,29 +116,3 @@
     </div>
   </div>
 </div>
-
-<!-- MODAL EXITO -->
-<ng-template #content let-modal>
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title" id="Operacion exitosa">Operacion exitosa</h5>
-      <button
-        type="button"
-        class="close"
-        data-bs-dismiss="modal"
-        aria-label="Cancelar"
-        (click)="sucessOk()"
-      >
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <p>Operacion realizada con exito.</p>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-info" (click)="sucessOk()">
-        Ok
-      </button>
-    </div>
-  </div>
-</ng-template>

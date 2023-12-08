@@ -6,10 +6,12 @@
       "email": "user@user.com",
       "password": "user1234",
       "role": "User",
-      "games": [],
+      "games": [
+        4
+      ],
       "borrowedGames": [
         {
-          "gameId": 1,
+          "gameId": 3,
           "userId": 3
         }
       ]
@@ -20,7 +22,17 @@
       "email": "user2@user2.com",
       "password": "user21234",
       "role": "User",
-      "games": []
+      "games": [],
+      "borrowedGames": [
+        {
+          "gameId": 3,
+          "userId": 3
+        },
+        {
+          "gameId": 4,
+          "userId": 1
+        }
+      ]
     },
     {
       "id": 3,

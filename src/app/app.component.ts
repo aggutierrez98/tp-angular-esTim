@@ -4,12 +4,14 @@ import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UsersService } from './users.service';
 import { Role, SafeUser } from '../types';
+import { SpinerComponent } from './modules/shared/spinner/spinner.component';
+import { ToastsContainer } from './modules/shared/toasts/toasts-container.component';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, NgbModule],
+  imports: [CommonModule, RouterOutlet, RouterLink, NgbModule, SpinerComponent, ToastsContainer],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
