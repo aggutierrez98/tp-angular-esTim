@@ -1,27 +1,32 @@
-# Tpfinal
+# Tp Final Integrador `EsTim`
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.5.
+Trabajo practico integrador final del curso de Angular de la UTN que incluye conocimientos de angular, HTML, CSS, Typescript y diseño UI y UX.
+Se busca simular una aplicacion de venta de videojuegos donde se pueden crear y manipular juegos y sus respectivos generos. Tambien se pueden registrar y logear usuarios. Por ultimo se realizar compras de juegos mediante distintos metodos de pago y luego se puede prestar juegos entre los usuarios.
 
-## Development server
+Projecto creado utilzando [Angular CLI](https://github.com/angular/angular-cli) version 17.0.5.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Levantar base de datos de prueba
 
-## Code scaffolding
+Instalar el paquete _json-server_ mediante:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+```shell
+npm i -g json-server
+```
+
+Luego lenvantar la base de datos mediante el comando:
+
+```shell
+json-server db.json --watch
+```
+
+## Servidor de desarrollo
+
+Correr `npm start` en la terminal. Luego dirigirse hacia `http://localhost:4200/` en el navegador. La aplicacion se refrescara automaticamente cuando sucede un cambio en el codigo.
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Correr `ng build` para buildear el proyecto. La build de produccion se guardara en el directorio `dist/`.
 
-## Running unit tests
+## Correr tests unitarios
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Correr `ng test` para ejecturar los tests unitarios de por medio de [Karma](https://karma-runner.github.io).
