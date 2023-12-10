@@ -5,23 +5,25 @@ Se busca simular una aplicacion de venta de videojuegos donde se pueden crear y 
 
 Projecto creado utilzando [Angular CLI](https://github.com/angular/angular-cli) version 17.0.5.
 
-## Levantar base de datos de prueba
+## Instalar dependencias
 
-Instalar el paquete _json-server_ mediante:
-
-```shell
-npm i -g json-server
-```
-
-Luego lenvantar la base de datos mediante el comando:
+Instalar dependencias con el comando:
 
 ```shell
-json-server db.json --watch
+npm install
 ```
 
 ## Servidor de desarrollo
 
-Correr `npm start` en la terminal. Luego dirigirse hacia `http://localhost:4200/` en el navegador. La aplicacion se refrescara automaticamente cuando sucede un cambio en el codigo.
+Correr el siguiente comando en la terminal:
+
+```shell
+npm run dev
+```
+
+De esta forma se levanta el servicio de _json server_ observando cambios y escuchando sobre el puerto 3000 por defecto. A su vez se levanta el servidor de desarrollo de angular en el puerto 4200 por defecto.
+
+Luego dirigirse hacia `http://localhost:4200/` en el navegador. La aplicacion se refrescara automaticamente cuando sucede un cambio en el codigo.
 
 ## Build
 
