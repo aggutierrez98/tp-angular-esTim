@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Game, Genre } from '../../../../../types';
-import { GamesService } from '../../../../game.service';
+import { GamesService } from '../../../../services/game.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { GenresService } from '../../../../genres.service';
-import { SpinnerService } from '../../../../spinner.service';
-import { ToastService } from '../../../../toast.service';
+import { GenresService } from '../../../../services/genres.service';
+import { SpinnerService } from '../../../../services/spinner.service';
+import { ToastService } from '../../../../services/toast.service';
 
 
 @Component({

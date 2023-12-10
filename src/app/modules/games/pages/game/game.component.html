@@ -2,7 +2,7 @@
   <div>
     @if (game){
     <div class="d-flex justify-content-between flex-grow-1">
-      <h2>Editar Juego:</h2>
+      <h4>Editar Juego:</h4>
 
       <button
         data-bs-toggle="modal"
@@ -15,7 +15,7 @@
     </div>
 
     } @else{
-    <h2>Crear Juego:</h2>
+    <h4>Crear Juego:</h4>
     }
 
     <form [formGroup]="gameData" (submit)="handleSubmit($event)">

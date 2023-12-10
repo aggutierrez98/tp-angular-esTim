@@ -1,19 +1,27 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
-import { Genre } from '../types';
-import { environment } from '../environment';
+import { Game } from '../../types';
+import { environment } from '../../environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class GenresService {
+export class GamesService {
   private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
-  getGenres(): Observable<Genre[]> {
-    return this.http.get<Genre[]>(`${this.apiUrl}/genres`).pipe(
+  getGames(): Observable<Game[]> {
+    return this.http.get<Game[]>(`${this.apiUrl}/games`).pipe(
+      catchError((error) => {
+        console.error('API Error:', error);
+        return throwError(() => new Error('Something went wrong. Please try again later.'));
+      })
+    );
+  }
+  getGame(id: string): Observable<Game> {
+    return this.http.get<Game>(`${this.apiUrl}/games/${id}`).pipe(
       catchError((error) => {
         console.error('API Error:', error);
         return throwError(() => new Error('Something went wrong. Please try again later.'));
@@ -21,8 +29,16 @@ export class GenresService {
     );
   }
 
-  getGenre(id: string): Observable<Genre> {
-    return this.http.get<Genre>(`${this.apiUrl}/genres/${id}`).pipe(
+  createGame(data: Omit<Game, "id">): Observable<Game> {
+    return this.http.post<Game>(`${this.apiUrl}/games`, data).pipe(
+      catchError((error) => {
+        console.error('API Error:', error);
+        return throwError(() => new Error('Something went wrong. Please try again later.'));
+      })
+    );
+  }
+  updateGame(id: string, data: Partial<Omit<Game, "id">>): Observable<Game> {
+    return this.http.put<Game>(`${this.apiUrl}/games/${id}`, data).pipe(
       catchError((error) => {
         console.error('API Error:', error);
         return throwError(() => new Error('Something went wrong. Please try again later.'));
@@ -30,26 +46,8 @@ export class GenresService {
     );
   }
 
-  createGenre(data: Omit<Genre, "id">): Observable<Genre> {
-    return this.http.post<Genre>(`${this.apiUrl}/genres`, data).pipe(
-      catchError((error) => {
-        console.error('API Error:', error);
-        return throwError(() => new Error('Something went wrong. Please try again later.'));
-      })
-    );
-  }
-
-  updateGenre(id: string, data: Partial<Omit<Genre, "id">>): Observable<Genre> {
-    return this.http.put<Genre>(`${this.apiUrl}/genres/${id}`, data).pipe(
-      catchError((error) => {
-        console.error('API Error:', error);
-        return throwError(() => new Error('Something went wrong. Please try again later.'));
-      })
-    );
-  }
-
-  deleteGenre(id: string): Observable<Genre> {
-    return this.http.delete<Genre>(`${this.apiUrl}/genres/${id}`).pipe(
+  deleteGame(id: string): Observable<Game> {
+    return this.http.delete<Game>(`${this.apiUrl}/games/${id}`).pipe(
       catchError((error) => {
         console.error('API Error:', error);
         return throwError(() => new Error('Something went wrong. Please try again later.'));

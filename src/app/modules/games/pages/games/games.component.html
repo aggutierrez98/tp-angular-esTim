@@ -1,6 +1,6 @@
 <section class="container mt-4">
   <div class="title-container">
-    <h2>Listado de juegos:</h2>
+    <h4 class="text-truncate">Listado de juegos:</h4>
 
     <button type="button" class="btn btn-primary" routerLink="/games/create">
       Cargar Juego
@@ -19,14 +19,20 @@
       >
         <div
           routerLink="/games/{{ game.id }}"
-          class="d-flex align-items-center flex-grow-1"
+          class="d-flex align-items-center flex-grow-1 text-truncate"
+          title="{{ game.title }}"
         >
-          <span class="badge badge-primary badge-pill">{{ game.id }}</span>
-          <span style="margin-left: 5px" class="fs-5 font-weight-bold">
+          <span class="badge rounded-pill text-bg-dark">{{ game.id }}</span>
+          <span
+            style="margin-left: 10px"
+            class="fs-5 font-weight-bold text-truncate me-2"
+          >
             {{ game.title }}
           </span>
           -
-          <span style="margin-left: 5px" class="fs-6">${{ game.price }} </span>
+          <span class="border border-dark rounded px-2 mx-2"
+            >${{ game.price }}</span
+          >
         </div>
         <button
           data-bs-toggle="modal"

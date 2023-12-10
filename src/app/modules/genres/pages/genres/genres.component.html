@@ -1,6 +1,6 @@
 <section class="container mt-4">
   <div class="title-container">
-    <h2>Listado de generos:</h2>
+    <h4 class="text-truncate">Listado de generos:</h4>
 
     <button type="button" class="btn btn-primary" routerLink="/genres/create">
       Cargar Genero
@@ -19,10 +19,14 @@
       >
         <div
           routerLink="/genres/{{ genre.id }}"
-          class="d-flex align-items-center flex-grow-1"
+          class="d-flex align-items-center flex-grow-1 text-truncate"
+          title="{{ genre.name }}"
         >
-          <span class="badge badge-primary badge-pill">{{ genre.id }}</span>
-          <span style="margin-left: 5px" class="fs-5 font-weight-bold">
+          <span class="badge rounded-pill text-bg-dark">{{ genre.id }}</span>
+          <span
+            style="margin-left: 10px"
+            class="fs-5 font-weight-bold text-truncate"
+          >
             {{ genre.name }}
           </span>
         </div>

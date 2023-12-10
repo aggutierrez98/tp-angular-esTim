@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { UsersService } from './users.service';
+import { UsersService } from './services/users.service';
 import { Role, SafeUser } from '../types';
 import { SpinerComponent } from './modules/shared/spinner/spinner.component';
 import { ToastsContainer } from './modules/shared/toasts/toasts-container.component';

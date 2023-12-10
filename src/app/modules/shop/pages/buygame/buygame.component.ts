@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GamesService } from '../../../../game.service';
-import { GenresService } from '../../../../genres.service';
+import { GamesService } from '../../../../services/game.service';
+import { GenresService } from '../../../../services/genres.service';
 import { Game, SafeUser } from '../../../../../types';
-import { UsersService } from '../../../../users.service';
-import { SpinnerService } from '../../../../spinner.service';
-import { ToastService } from '../../../../toast.service';
+import { UsersService } from '../../../../services/users.service';
+import { SpinnerService } from '../../../../services/spinner.service';
+import { ToastService } from '../../../../services/toast.service';
 
 @Component({
   selector: 'app-buygame',

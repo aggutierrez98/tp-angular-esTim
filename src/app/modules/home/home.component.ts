@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 // import { take } from 'rxjs';
 // import { AuthService } from 'src/app/services/auth.service';
 import { Game } from '../../../types';
-import { GamesService } from '../../game.service';
+import { GamesService } from '../../services/game.service';
 import { RouterLink } from '@angular/router';
 import { NgOptimizedImage } from '@angular/common';
 

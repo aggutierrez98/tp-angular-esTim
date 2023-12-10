@@ -1,6 +1,6 @@
 import { Component, TemplateRef, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UsersService } from '../../../../users.service';
+import { UsersService } from '../../../../services/users.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router, RouterLink } from '@angular/router';
 
@@ -53,7 +53,7 @@ export class RegisterComponent {
   }
 
   openModalFailed(content: TemplateRef<any>) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-sucess' }).result.then(
+    this.modalService.open(content, { ariaLabelledBy: 'modal-fail' }).result.then(
       (result) => {
         this.closeResult = `Closed with: ${result}`;
       }

@@ -1,11 +1,11 @@
 import { Component, TemplateRef, inject } from '@angular/core';
-import { GamesService } from '../../../../game.service';
+import { GamesService } from '../../../../services/game.service';
 import { Game, SafeUser } from '../../../../../types';
 import { Router } from '@angular/router';
-import { UsersService } from '../../../../users.service';
+import { UsersService } from '../../../../services/users.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { SpinnerService } from '../../../../spinner.service';
-import { ToastService } from '../../../../toast.service';
+import { SpinnerService } from '../../../../services/spinner.service';
+import { ToastService } from '../../../../services/toast.service';
 
 interface GameWithUser extends Game {
   user: SafeUser

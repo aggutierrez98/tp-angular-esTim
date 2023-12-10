@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Genre } from '../../../../../types';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GenresService } from '../../../../genres.service';
-import { SpinnerService } from '../../../../spinner.service';
-import { ToastService } from '../../../../toast.service';
+import { GenresService } from '../../../../services/genres.service';
+import { SpinnerService } from '../../../../services/spinner.service';
+import { ToastService } from '../../../../services/toast.service';
 
 @Component({
   selector: 'app-genre',

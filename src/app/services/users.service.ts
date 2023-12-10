@@ -1,8 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, switchMap, tap, throwError } from 'rxjs';
-import { LogInRequest, RegisterRequest, Role, SafeUser, User, exclude } from '../types';
-import { environment } from '../environment';
+import { LogInRequest, RegisterRequest, Role, SafeUser, User, exclude } from '../../types';
+import { environment } from '../../environment';
 
 @Injectable({
   providedIn: 'root',

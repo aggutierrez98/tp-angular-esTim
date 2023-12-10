@@ -2,13 +2,13 @@
   <div class="w-100 d-flex justify-content-around">
     <nav class="navbar navbar-expand-sm w-100 shadow">
       <div class="container">
-        <a class="navbar-brand" href="/#">EsTim</a>
+        <a class="navbar-brand fs-3" href="/#">EsTim</a>
         <button
           class="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
+          data-bs-target="#navbarLinks"
+          aria-controls="navbarLinks"
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
@@ -16,12 +16,15 @@
         </button>
 
         @if(!isAuthRoute){
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div
+          class="collapse navbar-collapse justify-content-between"
+          id="navbarLinks"
+        >
           <ul class="navbar-nav mr-auto">
             <li class="nav-item" routerLinkActive="active">
               <a
                 routerLink="/games"
-                class="nav-link {{
+                class="nav-link fs-5 {{
                   currentUser?.role !== Role.Admin ? 'disabled' : ''
                 }}"
                 >Juegos</a
@@ -30,53 +33,55 @@
             <li class="nav-item" routerLinkActive="active">
               <a
                 routerLink="/genres"
-                class="nav-link {{
+                class="nav-link fs-5 {{
                   currentUser?.role !== Role.Admin ? 'disabled' : ''
                 }}"
                 >Generos</a
               >
             </li>
           </ul>
-        </div>
-        } @if(currentUser){
-        <div ngbDropdown class="d-inline-block">
+
+          @if(currentUser){
+          <div ngbDropdown class="">
+            <button
+              type="button"
+              class="btn btn-outline-secondary text-dark"
+              id="dropdownBasic1"
+              ngbDropdownToggle
+            >
+              <i class="bi bi-person"></i>
+              {{ currentUser.email }}
+            </button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <p class="mb-2 text-center fw-bold">
+                Rol: {{ currentUser.role.toLocaleUpperCase() }}
+              </p>
+              <button routerLink="/checkout" ngbDropdownItem>
+                <i
+                  class="bi bi-controller"
+                  style="font-size: 1rem; margin-right: 10px"
+                ></i>
+                Mis Juegos
+              </button>
+              <button ngbDropdownItem (click)="logout()">
+                <i
+                  class="bi bi-box-arrow-right"
+                  style="font-size: 1rem; margin-right: 10px"
+                ></i>
+                Cerrar Sesion
+              </button>
+            </div>
+          </div>
+          } @else if(!isAuthRoute){
           <button
             type="button"
+            routerLink="/auth/login"
             class="btn btn-outline-secondary text-dark"
-            id="dropdownBasic1"
-            ngbDropdownToggle
           >
-            <i class="bi bi-person"></i>
-            {{ currentUser.email }}
+            Iniciar Sesion
           </button>
-          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-            <p class="mb-2 text-center fw-bold">
-              Rol: {{ currentUser.role.toLocaleUpperCase() }}
-            </p>
-            <button routerLink="/checkout" ngbDropdownItem>
-              <i
-                class="bi bi-controller"
-                style="font-size: 1rem; margin-right: 10px"
-              ></i>
-              Mis Juegos
-            </button>
-            <button ngbDropdownItem (click)="logout()">
-              <i
-                class="bi bi-box-arrow-right"
-                style="font-size: 1rem; margin-right: 10px"
-              ></i>
-              Cerrar Sesion
-            </button>
-          </div>
+          }
         </div>
-        } @else if(!isAuthRoute){
-        <button
-          type="button"
-          routerLink="/auth/login"
-          class="btn btn-outline-secondary text-dark"
-        >
-          Iniciar Sesion
-        </button>
         }
       </div>
     </nav>

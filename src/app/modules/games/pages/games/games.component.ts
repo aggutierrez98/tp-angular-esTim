@@ -1,10 +1,10 @@
 import { Component, OnInit, TemplateRef, inject } from '@angular/core';
-import { GamesService } from '../../../../game.service';
+import { GamesService } from '../../../../services/game.service';
 import { Game } from '../../../../../types';
 import { RouterLink } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { SpinnerService } from '../../../../spinner.service';
-import { ToastService } from '../../../../toast.service';
+import { SpinnerService } from '../../../../services/spinner.service';
+import { ToastService } from '../../../../services/toast.service';
 
 declare var window: any
 

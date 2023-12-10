@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UsersService } from '../../../../users.service';
+import { UsersService } from '../../../../services/users.service';
 import { Router, RouterLink } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 

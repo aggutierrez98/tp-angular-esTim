@@ -2,7 +2,7 @@
   <div>
     @if (genre){
     <div class="d-flex justify-content-between flex-grow-1">
-      <h2>Editar Genero:</h2>
+      <h4>Editar Genero:</h4>
 
       <button
         data-bs-toggle="modal"
@@ -15,7 +15,7 @@
     </div>
 
     } @else{
-    <h2>Crear Genero:</h2>
+    <h4>Crear Genero:</h4>
     }
 
     <form [formGroup]="genreData" (submit)="handleSubmit($event)">

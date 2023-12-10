@@ -1,10 +1,10 @@
 import { Component, OnInit, TemplateRef, inject } from '@angular/core';
 import { Genre } from '../../../../../types';
-import { GenresService } from '../../../../genres.service';
+import { GenresService } from '../../../../services/genres.service';
 import { RouterLink } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { SpinnerService } from '../../../../spinner.service';
-import { ToastService } from '../../../../toast.service';
+import { SpinnerService } from '../../../../services/spinner.service';
+import { ToastService } from '../../../../services/toast.service';
 
 @Component({
   selector: 'app-genres',
