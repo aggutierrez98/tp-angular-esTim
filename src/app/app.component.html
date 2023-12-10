@@ -45,15 +45,15 @@
           <div ngbDropdown class="">
             <button
               type="button"
-              class="btn btn-outline-secondary text-dark"
-              id="dropdownBasic1"
+              class="btn btn-outline-secondary"
+              id="dropdownUser"
               ngbDropdownToggle
             >
               <i class="bi bi-person"></i>
               {{ currentUser.email }}
             </button>
-            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-              <p class="mb-2 text-center fw-bold">
+            <div ngbDropdownMenu aria-labelledby="dropdownUser">
+              <p class="mb-2 text-center fw-bold text-light">
                 Rol: {{ currentUser.role.toLocaleUpperCase() }}
               </p>
               <button routerLink="/checkout" ngbDropdownItem>

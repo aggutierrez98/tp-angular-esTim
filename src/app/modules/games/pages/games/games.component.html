@@ -22,15 +22,16 @@
           class="d-flex align-items-center flex-grow-1 text-truncate"
           title="{{ game.title }}"
         >
-          <span class="badge rounded-pill text-bg-dark">{{ game.id }}</span>
+          <span class="badge rounded-pill text-bg-secondary">{{
+            game.id
+          }}</span>
           <span
             style="margin-left: 10px"
             class="fs-5 font-weight-bold text-truncate me-2"
           >
             {{ game.title }}
           </span>
-          -
-          <span class="border border-dark rounded px-2 mx-2"
+          <span class="border border-light rounded px-2 mx-2"
             >${{ game.price }}</span
           >
         </div>

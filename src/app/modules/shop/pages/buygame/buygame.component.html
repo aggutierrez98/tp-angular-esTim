@@ -6,7 +6,7 @@
       <div class="jumbotron mt-3 aling-items-center">
         <h1 class="display-4">
           {{ game?.title }}
-          <span class="badge rounded-pill text-light bg-dark fs-3 ms-2">{{
+          <span class="badge rounded-pill text-bg-light fs-3 ms-2">{{
             genre
           }}</span>
         </h1>
@@ -15,7 +15,7 @@
           src="{{ game?.imageUrl }}"
           width="1000"
         />
-        <p class="lead">
+        <p class="lead text-light">
           {{ game?.description }}
         </p>
 
@@ -27,23 +27,23 @@
 
           <dt class="col-sm-3">CPU</dt>
           <dd class="col-sm-9">
-            <p>{{ game?.requirements?.cpu }}</p>
+            <p class="text-secondary">{{ game?.requirements?.cpu }}</p>
           </dd>
 
           <dt class="col-sm-3">Memoria RAM</dt>
           <dd class="col-sm-9">
-            <p>{{ game?.requirements?.mem }}</p>
+            <p class="text-secondary">{{ game?.requirements?.mem }}</p>
           </dd>
 
           <dt class="col-sm-3 text-truncate">Almacenamiento</dt>
           <dd class="col-sm-9">
-            <p>{{ game?.requirements?.disk }}</p>
+            <p class="text-secondary">{{ game?.requirements?.disk }}</p>
           </dd>
         </dl>
 
         <dt class="col-sm-3">Precio final:</dt>
-        <dd class="col-sm-9 fs-2 fw-bold">
-          <p>${{ game?.price }}</p>
+        <dd class="col-sm-9">
+          <p class="fs-2 fw-bold text-light">${{ game?.price }}</p>
         </dd>
       </div>
 

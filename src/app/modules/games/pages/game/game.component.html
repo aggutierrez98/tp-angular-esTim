@@ -78,7 +78,9 @@
             Seleccione juego extendido
           </option>
           @for (game of games; track game.id) {
-          <option value="{{ game.id }}">{{ game.title }}</option>
+          <option class="text-light" value="{{ game.id }}">
+            {{ game.title }}
+          </option>
           }
         </select>
         }
@@ -97,7 +99,9 @@
         >
           <option disabled hidden selected value="">Seleccione genero</option>
           @for (genre of genres; track genre.id) {
-          <option value="{{ genre.id }}">{{ genre.name }}</option>
+          <option class="text-light" value="{{ genre.id }}">
+            {{ genre.name }}
+          </option>
           }
         </select>
       </div>
