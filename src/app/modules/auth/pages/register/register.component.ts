@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { UsersService } from '../../../../services/users.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router, RouterLink } from '@angular/router';
+import { SpinnerService } from '../../../../services/spinner.service';
 
 @Component({
   selector: 'app-register',
@@ -23,6 +24,7 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder,
     private usersService: UsersService,
     private router: Router,
+    private spinnerService: SpinnerService
   ) { }
 
   ngOnInit(): void {
@@ -38,12 +40,15 @@ export class RegisterComponent implements OnInit {
   }
 
   handleSubmit(content: TemplateRef<HTMLDivElement>) {
+    this.spinnerService.setLoading(true);
     if (this.registerForm.valid) {
       this.usersService.register(this.registerForm.value).subscribe({
         complete: () => {
+          this.spinnerService.setLoading(false);
           this.router.navigate(['/']);
         },
         error: () => {
+          this.spinnerService.setLoading(false);
           this.openModalFailed(content)
         }
       });

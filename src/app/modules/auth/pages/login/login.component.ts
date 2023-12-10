@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { UsersService } from '../../../../services/users.service';
 import { Router, RouterLink } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SpinnerService } from '../../../../services/spinner.service';
 
 @Component({
   selector: 'app-login',
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private usersService: UsersService,
     private router: Router,
+    private spinnerService: SpinnerService
   ) { }
 
   ngOnInit(): void {
@@ -38,12 +40,15 @@ export class LoginComponent implements OnInit {
   }
 
   handleSubmit(content: TemplateRef<HTMLDivElement>) {
+    this.spinnerService.setLoading(true);
     if (this.logInForm.valid) {
       this.usersService.logIn(this.logInForm.value).subscribe({
         complete: () => {
+          this.spinnerService.setLoading(false);
           this.router.navigate(['/']);
         },
         error: () => {
+          this.spinnerService.setLoading(false);
           this.openModalFailed(content)
         }
       });
@@ -59,5 +64,4 @@ export class LoginComponent implements OnInit {
       }
     );
   }
-
 }
