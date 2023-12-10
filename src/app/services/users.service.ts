@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, switchMap, tap, throwError } from 'rxjs';
 import { LogInRequest, RegisterRequest, Role, SafeUser, User, exclude } from '../../types';
-import { environment } from '../../environment';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -66,8 +66,7 @@ export class UsersService {
         }
       }),
       tap((safeUser) => {
-        // sessionStorage.setItem(this.userKey, JSON.stringify(safeUser));
-        localStorage.setItem(this.userKey, JSON.stringify(safeUser));
+        sessionStorage.setItem(this.userKey, JSON.stringify(safeUser));
       })
     );
   }
@@ -92,21 +91,18 @@ export class UsersService {
         }
       }),
       tap((safeUser) => {
-        // sessionStorage.setItem(this.userKey, JSON.stringify(safeUser));
-        localStorage.setItem(this.userKey, JSON.stringify(safeUser));
+        sessionStorage.setItem(this.userKey, JSON.stringify(safeUser));
       })
     );
   }
 
   getCurrentUser(): SafeUser | null {
-    // const userData = sessionStorage.getItem(this.userKey);
-    const userData = localStorage.getItem(this.userKey);
+    const userData = sessionStorage.getItem(this.userKey);
     return userData ? JSON.parse(userData) : null;
   }
 
   logOut(): void {
-    // sessionStorage.removeItem(this.userKey);
-    localStorage.removeItem(this.userKey);
+    sessionStorage.removeItem(this.userKey);
   }
 
   buyGame(gameId: number) {
@@ -118,7 +114,7 @@ export class UsersService {
         return throwError(() => new Error('Something went wrong. Please try again later.'));
       }),
       tap((safeUser) => {
-        localStorage.setItem(this.userKey, JSON.stringify(safeUser));
+        sessionStorage.setItem(this.userKey, JSON.stringify(safeUser));
       })
     );
   }
@@ -152,7 +148,7 @@ export class UsersService {
         return throwError(() => new Error('Something went wrong. Please try again later.'));
       }),
       tap((safeUser) => {
-        localStorage.setItem(this.userKey, JSON.stringify(safeUser));
+        sessionStorage.setItem(this.userKey, JSON.stringify(safeUser));
       })
     )
   }
