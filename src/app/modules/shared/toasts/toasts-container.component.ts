@@ -31,12 +31,14 @@ import { ToastService } from '../../../services/toast.service';
       </ngb-toast>
     }
   `,
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'toast-container position-fixed bottom-0 end-0 p-3',
     style: 'z-index: 1200',
   },
   styles: ['.toast { --bs-toast-padding-x: 0px !important;}']
 })
-export class ToastsContainer {
+
+export class ToastsContainerComponent {
   toastService = inject(ToastService);
 }

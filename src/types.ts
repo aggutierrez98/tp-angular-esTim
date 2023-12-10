@@ -53,6 +53,7 @@ export type SafeUser = Omit<
 >
 
 export function exclude<
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     T extends Record<string, any>,
     K extends keyof T
 >(

@@ -146,7 +146,7 @@ export class GameComponent implements OnInit {
 
   deleteGame() {
     this.spinnerService.setLoading(true);
-    this.gameService.deleteGame(this.id).subscribe((res) => {
+    this.gameService.deleteGame(this.id).subscribe(() => {
       this.spinnerService.setLoading(false);
       this.toastService.showSuccess("Juego elimado exitosamente")
       this.router.navigate(["/games"])

@@ -1,4 +1,4 @@
-import { Component, TemplateRef, inject } from '@angular/core';
+import { Component, OnInit, TemplateRef, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UsersService } from '../../../../services/users.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -11,7 +11,7 @@ import { Router, RouterLink } from '@angular/router';
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
 
   private modalService = inject(NgbModal);
   closeResult = ""
@@ -37,13 +37,13 @@ export class RegisterComponent {
     });
   }
 
-  handleSubmit(content: TemplateRef<any>) {
+  handleSubmit(content: TemplateRef<HTMLDivElement>) {
     if (this.registerForm.valid) {
       this.usersService.register(this.registerForm.value).subscribe({
         complete: () => {
           this.router.navigate(['/']);
         },
-        error: (err) => {
+        error: () => {
           this.openModalFailed(content)
         }
       });
@@ -52,7 +52,7 @@ export class RegisterComponent {
     }
   }
 
-  openModalFailed(content: TemplateRef<any>) {
+  openModalFailed(content: TemplateRef<HTMLDivElement>) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-fail' }).result.then(
       (result) => {
         this.closeResult = `Closed with: ${result}`;

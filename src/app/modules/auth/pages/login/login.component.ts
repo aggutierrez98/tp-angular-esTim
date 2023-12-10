@@ -37,13 +37,13 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  handleSubmit(content: TemplateRef<any>) {
+  handleSubmit(content: TemplateRef<HTMLDivElement>) {
     if (this.logInForm.valid) {
       this.usersService.logIn(this.logInForm.value).subscribe({
         complete: () => {
           this.router.navigate(['/']);
         },
-        error: (err) => {
+        error: () => {
           this.openModalFailed(content)
         }
       });
@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  openModalFailed(content: TemplateRef<any>) {
+  openModalFailed(content: TemplateRef<HTMLDivElement>) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-sucess' }).result.then(
       (result) => {
         this.closeResult = `Closed with: ${result}`;

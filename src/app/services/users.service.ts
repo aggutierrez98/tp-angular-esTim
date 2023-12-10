@@ -110,7 +110,7 @@ export class UsersService {
   }
 
   buyGame(gameId: number) {
-    let user = this.getCurrentUser()!
+    const user = this.getCurrentUser()!
     user.games = [...user.games || [], gameId]
     return this.http.patch<User>(`${this.apiUrl}/users/${user.id}`, user).pipe(
       catchError((error) => {

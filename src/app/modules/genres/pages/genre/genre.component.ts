@@ -88,13 +88,13 @@ export class GenreComponent implements OnInit {
     }
 
     if (this.id !== "create") {
-      this.genresService.updateGenre(this.id, dataToSend).subscribe((res) => {
+      this.genresService.updateGenre(this.id, dataToSend).subscribe(() => {
         this.spinnerService.setLoading(false);
         this.router.navigate(["/genres"])
         this.toastService.showSuccess("Genero editado exitosamente")
       })
     } else {
-      this.genresService.createGenre(dataToSend).subscribe((res) => {
+      this.genresService.createGenre(dataToSend).subscribe(() => {
         this.spinnerService.setLoading(false);
         this.router.navigate(["/genres"])
         this.toastService.showSuccess("Genero creado exitosamente")
@@ -105,7 +105,7 @@ export class GenreComponent implements OnInit {
   deleteGenre() {
     this.spinnerService.setLoading(true);
 
-    this.genresService.deleteGenre(this.id).subscribe((res) => {
+    this.genresService.deleteGenre(this.id).subscribe(() => {
       this.spinnerService.setLoading(false);
       this.router.navigate(["/genres"])
       this.toastService.showSuccess("Genero eliminado exitosamente")

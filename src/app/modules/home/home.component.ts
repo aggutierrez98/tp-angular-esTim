@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-// import { Router } from '@angular/router';
-// import { take } from 'rxjs';
-// import { AuthService } from 'src/app/services/auth.service';
 import { Game } from '../../../types';
 import { GamesService } from '../../services/game.service';
 import { RouterLink } from '@angular/router';

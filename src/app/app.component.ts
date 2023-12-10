@@ -5,13 +5,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UsersService } from './services/users.service';
 import { Role, SafeUser } from '../types';
 import { SpinerComponent } from './modules/shared/spinner/spinner.component';
-import { ToastsContainer } from './modules/shared/toasts/toasts-container.component';
+import { ToastsContainerComponent } from './modules/shared/toasts/toasts-container.component';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, NgbModule, SpinerComponent, ToastsContainer],
+  imports: [CommonModule, RouterOutlet, RouterLink, NgbModule, SpinerComponent, ToastsContainerComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

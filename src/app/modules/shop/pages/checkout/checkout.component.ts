@@ -1,9 +1,8 @@
-import { Component, TemplateRef, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { GamesService } from '../../../../services/game.service';
 import { Game, SafeUser } from '../../../../../types';
 import { Router } from '@angular/router';
 import { UsersService } from '../../../../services/users.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SpinnerService } from '../../../../services/spinner.service';
 import { ToastService } from '../../../../services/toast.service';
 
@@ -18,7 +17,7 @@ interface GameWithUser extends Game {
   templateUrl: './checkout.component.html',
   styleUrl: './checkout.component.css'
 })
-export class CheckoutComponent {
+export class CheckoutComponent implements OnInit {
   toastService = inject(ToastService);
   games?: Game[] = []
   gamesBorrowed?: GameWithUser[] = []
@@ -39,7 +38,7 @@ export class CheckoutComponent {
   ngOnInit(): void {
     this.currentUser = this.userService.getCurrentUser();
     this.userService.getUsers().subscribe((res) => {
-      this.users = res.filter(u => u.id !== this.currentUser?.id);;
+      this.users = res.filter(u => u.id !== this.currentUser?.id);
     });
 
     this.gameService.getGames().subscribe((res) => {

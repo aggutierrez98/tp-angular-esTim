@@ -1,12 +1,10 @@
-import { Component, OnInit, TemplateRef, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GamesService } from '../../../../services/game.service';
 import { Game } from '../../../../../types';
 import { RouterLink } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SpinnerService } from '../../../../services/spinner.service';
 import { ToastService } from '../../../../services/toast.service';
 
-declare var window: any
 
 @Component({
   selector: 'app-games',
@@ -21,7 +19,6 @@ export class GamesComponent implements OnInit {
 
   games: Game[] = []
   gameToDelete?: number = undefined
-  modal: any
 
   constructor(
     private gameService: GamesService,
@@ -41,7 +38,7 @@ export class GamesComponent implements OnInit {
 
   eliminarJuego() {
     this.spinnerService.setLoading(true);
-    this.gameService.deleteGame(String(this.gameToDelete)).subscribe((res) => {
+    this.gameService.deleteGame(String(this.gameToDelete)).subscribe(() => {
       this.spinnerService.setLoading(false);
       this.toastService.showSuccess("Juego eliminado exitosamente")
       this.ngOnInit()

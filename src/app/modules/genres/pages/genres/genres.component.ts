@@ -1,8 +1,7 @@
-import { Component, OnInit, TemplateRef, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Genre } from '../../../../../types';
 import { GenresService } from '../../../../services/genres.service';
 import { RouterLink } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SpinnerService } from '../../../../services/spinner.service';
 import { ToastService } from '../../../../services/toast.service';
 
@@ -15,7 +14,6 @@ import { ToastService } from '../../../../services/toast.service';
 })
 export class GenresComponent implements OnInit {
   closeResult = ""
-
   genres: Genre[] = []
   genreToDelete?: number = undefined
 
@@ -37,7 +35,7 @@ export class GenresComponent implements OnInit {
 
   eliminarGenero() {
     this.spinnerService.setLoading(true);
-    this.genreService.deleteGenre(String(this.genreToDelete)).subscribe((res) => {
+    this.genreService.deleteGenre(String(this.genreToDelete)).subscribe(() => {
       this.spinnerService.setLoading(false);
       this.toastService.showSuccess("Genero eliminado exitosamente")
       this.ngOnInit()
